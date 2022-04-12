@@ -7,6 +7,13 @@ import {NavComponent} from './components/layout/nav/nav.component';
 import {FooterComponent} from './components/layout/footer/footer.component';
 import {LoginComponent} from './components/login/login.component';
 import {HomeComponent} from './components/layout/home/home.component';
+import {CourseListComponent} from './components/course/course-list/course-list.component';
+import {CourseListItemComponent} from './components/course/course-list-item/course-list-item.component';
+import {CourseDetailsComponent} from './components/course/course-details/course-details.component';
+import {ProgramListComponent} from './components/program/program-list/program-list.component';
+import {ProgramListItemComponent} from './components/program/program-list-item/program-list-item.component';
+import {PageNotFoundComponent} from './components/layout/page-not-found/page-not-found.component';
+import {ImpressumComponent} from './components/impressum/impressum.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +21,14 @@ import {HomeComponent} from './components/layout/home/home.component';
     NavComponent,
     FooterComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    CourseListComponent,
+    CourseListItemComponent,
+    CourseDetailsComponent,
+    ProgramListComponent,
+    ProgramListItemComponent,
+    PageNotFoundComponent,
+    ImpressumComponent,
   ],
   imports: [
     BrowserModule,
