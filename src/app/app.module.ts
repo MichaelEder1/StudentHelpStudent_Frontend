@@ -6,13 +6,15 @@ import {AppComponent} from './app.component';
 import {NavComponent} from './components/layout/nav/nav.component';
 import {FooterComponent} from './components/layout/footer/footer.component';
 import {LoginComponent} from './components/login/login.component';
+import {HomeComponent} from './components/layout/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     FooterComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -21,4 +23,5 @@ import {LoginComponent} from './components/login/login.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
