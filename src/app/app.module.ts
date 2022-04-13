@@ -17,6 +17,7 @@ import {ImpressumComponent} from './components/impressum/impressum.component';
 import {HttpClientModule} from "@angular/common/http";
 import {ProgramService} from "./shared/program-service";
 import {CourseService} from "./shared/course-service";
+import { DatenschutzComponent } from './components/datenschutz/datenschutz.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import {CourseService} from "./shared/course-service";
     ProgramListItemComponent,
     PageNotFoundComponent,
     ImpressumComponent,
+    DatenschutzComponent,
   ],
   imports: [
     BrowserModule,
