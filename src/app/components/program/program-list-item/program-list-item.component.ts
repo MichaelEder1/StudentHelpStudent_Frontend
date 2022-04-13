@@ -8,8 +8,10 @@ import {Program} from "../../../shared/program";
 })
 export class ProgramListItemComponent implements OnInit {
   @Input() program: Program | undefined;
+  @Input() programId: number | undefined;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

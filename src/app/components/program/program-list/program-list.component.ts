@@ -16,6 +16,5 @@ export class ProgramListComponent implements OnInit {
 
   ngOnInit(): void {
     this.ps.getAll().subscribe(res => this.programs = res);
-    console.log(this.programs);
   }
 }
