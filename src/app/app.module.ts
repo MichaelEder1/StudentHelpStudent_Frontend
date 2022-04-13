@@ -14,6 +14,8 @@ import {ProgramListComponent} from './components/program/program-list/program-li
 import {ProgramListItemComponent} from './components/program/program-list-item/program-list-item.component';
 import {PageNotFoundComponent} from './components/layout/page-not-found/page-not-found.component';
 import {ImpressumComponent} from './components/impressum/impressum.component';
+import {HttpClientModule} from "@angular/common/http";
+import {ProgramService} from "./shared/program-service";
 
 @NgModule({
   declarations: [
@@ -32,9 +34,10 @@ import {ImpressumComponent} from './components/impressum/impressum.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ProgramService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

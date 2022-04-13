@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {ProgramService} from "../../../shared/program-service";
+import {Program} from "../../../shared/program";
 
 @Component({
   selector: 'shs-program-list',
@@ -7,9 +9,13 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ProgramListComponent implements OnInit {
 
-  constructor() { }
+  programs: Program[] = [];
 
-  ngOnInit(): void {
+  constructor(private ps: ProgramService) {
   }
 
+  ngOnInit(): void {
+    this.ps.getAll().subscribe(res => this.programs = res);
+    console.log(this.programs);
+  }
 }

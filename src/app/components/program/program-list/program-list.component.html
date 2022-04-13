@@ -1,1 +1,10 @@
-<p>program-list works!</p>
+<div class="hero min-h-screen flex justify-center flex-wrap gap-8">
+  <div *ngFor="let program of programs" class="card bg-base-100 shadow-xl">
+    <div class="card-body">
+      <h2 class="card-title">{{program.program_name}}</h2>
+      <div class="card-actions justify-end mt-4">
+        <button class="btn btn-primary">Lehrveranstaltungen anzeigen</button>
+      </div>
+    </div>
+  </div>
+</div>
