@@ -16,6 +16,7 @@ import {PageNotFoundComponent} from './components/layout/page-not-found/page-not
 import {ImpressumComponent} from './components/impressum/impressum.component';
 import {HttpClientModule} from "@angular/common/http";
 import {ProgramService} from "./shared/program-service";
+import {CourseService} from "./shared/course-service";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import {ProgramService} from "./shared/program-service";
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ProgramService],
+  providers: [ProgramService, CourseService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

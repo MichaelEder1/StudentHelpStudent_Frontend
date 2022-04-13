@@ -20,6 +20,12 @@ export class CourseService {
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
+  getCourseByCode(programName: string) {
+    return this.http.get<Array<Course>>(`${this.api}/programs/${programName}/courses`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+
+  }
+
   private errorHandler(error: Error | any): Observable<any> {
     return throwError(error);
   }

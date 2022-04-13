@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CourseService} from "../../../shared/course-service";
 import {Course} from "../../../shared/course";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'shs-course-list',
@@ -9,13 +10,13 @@ import {Course} from "../../../shared/course";
 })
 export class CourseListComponent implements OnInit {
   courses: Course[] = [];
-  @Input() programId: number | undefined;
-
-  constructor(private cs: CourseService) {
+  programName:string = "";
+  constructor(private cs: CourseService, route: ActivatedRoute) {
+    this.programName = route.snapshot.params['course'];
   }
 
   ngOnInit(): void {
-    this.cs.getAll().subscribe(res => this.courses = res);
-    console.log(this.programId);
+    this.cs.getCourseByCode(this.programName).subscribe(res => this.courses = res);
+
   }
 }
