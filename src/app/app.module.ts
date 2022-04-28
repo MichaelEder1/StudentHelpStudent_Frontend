@@ -18,6 +18,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {ProgramService} from "./shared/program-service";
 import {CourseService} from "./shared/course-service";
 import { DatenschutzComponent } from './components/datenschutz/datenschutz.component';
+import {DateService} from "./shared/date-service";
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -34,13 +36,14 @@ import { DatenschutzComponent } from './components/datenschutz/datenschutz.compo
     PageNotFoundComponent,
     ImpressumComponent,
     DatenschutzComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ProgramService, CourseService],
+  providers: [ProgramService, CourseService, DateService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

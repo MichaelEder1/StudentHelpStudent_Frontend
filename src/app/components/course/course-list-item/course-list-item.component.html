@@ -3,6 +3,6 @@
   <h2 class="card-title" *ngIf="course.course_name">{{course.course_name}}</h2>
   <p *ngIf="course.description">{{course.description}}</p>
   <div class="card-actions justify-end">
-    <button class="btn btn-primary">mehr Erfahren</button>
+    <a routerLink="/lehrveranstaltungen/{{programCode}}/{{course.code}}" class="btn btn-primary">mehr Erfahren</a>
   </div>
 </div>

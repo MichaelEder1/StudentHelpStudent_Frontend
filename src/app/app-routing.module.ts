@@ -7,14 +7,18 @@ import {CourseListComponent} from "./components/course/course-list/course-list.c
 import {PageNotFoundComponent} from "./components/layout/page-not-found/page-not-found.component";
 import {ImpressumComponent} from "./components/impressum/impressum.component";
 import {DatenschutzComponent} from "./components/datenschutz/datenschutz.component";
+import {CourseDetailsComponent} from "./components/course/course-details/course-details.component";
+import {ProfileComponent} from "./components/profile/profile.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'lehrveranstaltungen', component: ProgramListComponent},
   {path: 'lehrveranstaltungen/:course', component: CourseListComponent},
+  {path: 'lehrveranstaltungen/:course/:id', component: CourseDetailsComponent},
   {path: 'impressum', component: ImpressumComponent},
   {path: 'datenschutz', component: DatenschutzComponent},
+  {path: 'profile', component: ProfileComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 

@@ -8,7 +8,7 @@ import {Course} from "../../../shared/course";
 })
 export class CourseListItemComponent implements OnInit {
   @Input() course: Course | undefined;
-
+  @Input() programCode: string | undefined;
   constructor() {
   }
 
