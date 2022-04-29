@@ -1,8 +1,8 @@
 <figure *ngIf="course && course.image"><img [src]="course.image" [alt]="course.course_name"/></figure>
 <div class="card-body" *ngIf="course">
   <h2 class="card-title" *ngIf="course.course_name">{{course.course_name}}</h2>
-  <p *ngIf="course.description">{{course.description}}</p>
+  <p *ngIf="course.description">{{course.description.substring(0, 100) + "..."}}</p>
   <div class="card-actions justify-end">
-    <a routerLink="/lehrveranstaltungen/{{programCode}}/{{course.code}}" class="btn btn-primary">mehr Erfahren</a>
+    <a routerLink="/lehrveranstaltungen/{{programCode}}/{{course.id}}" class="btn btn-primary">mehr Erfahren</a>
   </div>
 </div>

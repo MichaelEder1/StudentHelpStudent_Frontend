@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {catchError, Observable, retry, throwError} from "rxjs";
-import {Program} from "./program";
+import {Date} from "./Date";
 
 @Injectable()
 export class DateService {

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {DateService} from "../../../shared/date-service";
+import {Date} from '../../../shared/Date';
+//import {Course} from '../../../shared/Course';
 
 
 @Component({
