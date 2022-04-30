@@ -20,6 +20,9 @@ import {CourseService} from "./shared/course-service";
 import { DatenschutzComponent } from './components/datenschutz/datenschutz.component';
 import {DateService} from "./shared/date-service";
 import { ProfileComponent } from './components/profile/profile.component';
+import { OfferListComponent } from './components/offer/offer-list/offer-list.component';
+import { OfferListItemComponent } from './components/offer/offer-list-item/offer-list-item.component';
+import { OfferDetailComponent } from './components/offer/offer-detail/offer-detail.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,9 @@ import { ProfileComponent } from './components/profile/profile.component';
     ImpressumComponent,
     DatenschutzComponent,
     ProfileComponent,
+    OfferListComponent,
+    OfferListItemComponent,
+    OfferDetailComponent,
   ],
   imports: [
     BrowserModule,

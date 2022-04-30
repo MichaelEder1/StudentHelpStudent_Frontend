@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {DateService} from "../../../shared/date-service";
 import {Date} from '../../../shared/Date';
-//import {Course} from '../../../shared/Course';
-
 
 @Component({
   selector: 'shs-course-details',
@@ -23,5 +21,4 @@ export class CourseDetailsComponent implements OnInit {
     this.ds.getDatesForCourse(this.courseId).subscribe(res => this.dates = res);
     window.setTimeout(() =>console.log(this.dates), 500);
   }
-
 }
