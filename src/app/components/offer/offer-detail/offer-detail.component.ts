@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {DateService} from "../../../shared/date-service";
+import {ActivatedRoute} from "@angular/router";
+import {Date} from "../../../shared/Date";
 
 @Component({
   selector: 'shs-offer-detail',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OfferDetailComponent implements OnInit {
 
-  constructor() { }
+  dates: Date[] = [];
+  offerId: number = 0;
+
+  constructor(private ds:DateService, private route:ActivatedRoute) {
+    this.offerId = route.snapshot.params['id'];
+  }
 
   ngOnInit(): void {
+    this.ds.getDatesForOffer(this.offerId).subscribe(res => this.dates = res);
+    window.setTimeout(() => console.log(this.dates), 500);
   }
 
 }

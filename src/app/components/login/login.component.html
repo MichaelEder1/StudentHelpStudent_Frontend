@@ -2,29 +2,30 @@
   <div>
     <div class="text-center lg:text-left">
       <h1 class="text-5xl text-center font-bold">Login</h1>
-      <p class="py-6 text-center">Log dich ein, um Angebote zu buchen oder selbst Nachhilfe anzubieten.<br>Melde dich einfach mit deinen FH-Zugangsdaten an.</p>
+      <p class="py-6 text-center">Log dich ein, um Angebote zu buchen oder selbst Nachhilfe anzubieten.<br>Melde dich einfach mit deinen FH-Zugangsdaten an.
+      </p>
     </div>
-    <div class="card m-auto flex flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+    <form class="card m-auto flex flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100" [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="card-body">
         <div class="form-control">
           <label class="label">
             <span class="label-text">E-Mail</span>
           </label>
-          <input type="text" placeholder="E-Mail (S..........@fhooe.at)" class="input input-bordered">
+          <input type="email" placeholder="E-Mail (S..........@fhooe.at)" id="email" class="input input-bordered" formControlName="email">
+          <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched) && loginForm.get('email')?.hasError('required')" class="text-red-800 text-xs">Bitte eine E-Mail Adresse eingeben</div>
+          <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched) && loginForm.get('email')?.hasError('email')" class="text-red-800 text-xs">E-Mail Format ungültig</div>
         </div>
         <div class="form-control">
           <label class="label">
             <span class="label-text">Passwort</span>
           </label>
-          <input type="text" placeholder="Passwort" class="input input-bordered">
-          <label class="label">
-            <a href="#" class="label-text-alt link link-hover">Passwort vergessen?</a>
-          </label>
+          <input type="password" placeholder="Passwort" class="input input-bordered" formControlName="password">
+          <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="text-red-800 text-xs">Passwort ist verpflichtend</div>
         </div>
         <div class="form-control mt-6">
-          <button class="btn btn-primary">Login</button>
+          <button class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>

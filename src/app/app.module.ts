@@ -13,16 +13,22 @@ import {ProgramListComponent} from './components/program/program-list/program-li
 import {ProgramListItemComponent} from './components/program/program-list-item/program-list-item.component';
 import {PageNotFoundComponent} from './components/layout/page-not-found/page-not-found.component';
 import {ImpressumComponent} from './components/impressum/impressum.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ProgramService} from "./shared/program-service";
 import {CourseService} from "./shared/course-service";
-import { DatenschutzComponent } from './components/datenschutz/datenschutz.component';
+import {DatenschutzComponent} from './components/datenschutz/datenschutz.component';
 import {DateService} from "./shared/date-service";
-import { ProfileComponent } from './components/profile/profile.component';
-import { OfferListComponent } from './components/offer/offer-list/offer-list.component';
-import { OfferListItemComponent } from './components/offer/offer-list-item/offer-list-item.component';
-import { OfferDetailComponent } from './components/offer/offer-detail/offer-detail.component';
+import {ProfileComponent} from './components/profile/profile.component';
+import {OfferListComponent} from './components/offer/offer-list/offer-list.component';
+import {OfferListItemComponent} from './components/offer/offer-list-item/offer-list-item.component';
+import {OfferDetailComponent} from './components/offer/offer-detail/offer-detail.component';
 import {OfferService} from "./shared/offer-service";
+import {ReactiveFormsModule} from "@angular/forms";
+import {AuthenticationService} from "./shared/authentification.service";
+import {TokenInterceptorService} from "./shared/token-interceptor.service";
+import {JwtInterceptorService} from "./shared/jwt-interceptor.service";
+import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -46,9 +52,22 @@ import {OfferService} from "./shared/offer-service";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
-  providers: [ProgramService, CourseService, DateService, OfferService],
+  providers: [ProgramService, CourseService, DateService, OfferService, AuthenticationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorService,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

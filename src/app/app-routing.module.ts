@@ -9,13 +9,15 @@ import {ImpressumComponent} from "./components/impressum/impressum.component";
 import {DatenschutzComponent} from "./components/datenschutz/datenschutz.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {OfferListComponent} from "./components/offer/offer-list/offer-list.component";
+import {OfferDetailComponent} from "./components/offer/offer-detail/offer-detail.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'lehrveranstaltungen', component: ProgramListComponent},
   {path: 'lehrveranstaltungen/:course', component: CourseListComponent},
-  {path: 'lehrveranstaltungen/:course/offers', component: OfferListComponent},
+  {path: 'lehrveranstaltungen/:program/:course/angebote', component: OfferListComponent},
+  {path: 'lehrveranstaltungen/:program/:course/angebote/:id', component: OfferDetailComponent},
   {path: 'impressum', component: ImpressumComponent},
   {path: 'datenschutz', component: DatenschutzComponent},
   {path: 'profile', component: ProfileComponent},

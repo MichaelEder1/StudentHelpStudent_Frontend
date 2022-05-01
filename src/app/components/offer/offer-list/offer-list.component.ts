@@ -14,11 +14,9 @@ export class OfferListComponent implements OnInit {
 
   constructor(private os: OfferService, private route: ActivatedRoute) {
     this.courseName = route.snapshot.params['course'];
-    console.log(route.snapshot.params);
   }
 
   ngOnInit(): void {
     this.os.getOffersByCourse(this.courseName).subscribe(res => this.offers = res);
-    window.setTimeout(() => console.log(this.offers), 500);
   }
 }

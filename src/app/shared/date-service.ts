@@ -21,8 +21,8 @@ export class DateService {
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
-  getDatesForCourse(id: number): Observable<Array<Date>> {
-    return this.http.get<Array<Date>>(`${this.api}/course/${id}/dates`)
+  getDatesForOffer(id: number): Observable<Array<Date>> {
+    return this.http.get<Array<Date>>(`${this.api}/dates/${id}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 

@@ -2,6 +2,6 @@
   <h2 class="card-title" *ngIf="offer.title">{{offer.title}}</h2>
   <p *ngIf="offer.information">{{offer.information.substring(0, 100) + "..."}}</p>
   <div class="card-actions justify-end">
-    <a routerLink="/" class="btn btn-primary">mehr Erfahren</a>
+    <a routerLink="../angebote/{{offer.id}}" class="btn btn-primary">mehr Erfahren</a>
   </div>
 </div>

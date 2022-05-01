@@ -3,6 +3,6 @@
   <h2 class="card-title" *ngIf="course.course_name">{{course.course_name}}</h2>
   <p *ngIf="course.description">{{course.description.substring(0, 100) + "..."}}</p>
   <div class="card-actions justify-end">
-    <a routerLink="/lehrveranstaltungen/{{programCode}}/offers" class="btn btn-primary">mehr Erfahren</a>
+    <a routerLink="/lehrveranstaltungen/{{programCode}}/{{course.code}}/angebote" class="btn btn-primary">mehr Erfahren</a>
   </div>
 </div>
