@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -29,6 +29,11 @@ import {TokenInterceptorService} from "./shared/token-interceptor.service";
 import {JwtInterceptorService} from "./shared/jwt-interceptor.service";
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {UserService} from "./shared/user-service";
+import {registerLocaleData} from "@angular/common";
+import localeDE from '@angular/common/locales/de';
+
+registerLocaleData(localeDE);
 
 @NgModule({
   declarations: [
@@ -57,7 +62,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
   ],
-  providers: [ProgramService, CourseService, DateService, OfferService, AuthenticationService,
+  providers: [ProgramService, CourseService, DateService, OfferService, AuthenticationService, UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
@@ -67,7 +72,12 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptorService,
       multi: true
-    }],
+    },
+    {
+      provide: LOCALE_ID,
+      useValue: 'de'
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

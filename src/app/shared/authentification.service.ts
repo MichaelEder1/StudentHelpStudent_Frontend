@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import jwt_decode from "jwt-decode";
+import {Router} from "@angular/router";
 
 interface Token {
   exp: number;
@@ -13,7 +14,7 @@ interface Token {
 export class AuthenticationService {
   private api: string = "http://shs.s1910456008.student.kwmhgb.at/api/auth";
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   login(email: string, password: string) {
@@ -28,8 +29,8 @@ export class AuthenticationService {
   }
 
   public setSessionStorage(token: string) {
-    console.log("Storing token");
-    console.log(jwt_decode(token));
+    //console.log("Storing token");
+    //console.log(jwt_decode(token));
     const decodedToken = jwt_decode(token) as Token;
     console.log(decodedToken);
     console.log(decodedToken.user.id);
@@ -41,18 +42,19 @@ export class AuthenticationService {
     this.http.post(`${this.api}/logout`, {});
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("userId");
-    console.log("logged out");
+    this.router.navigateByUrl("/");
+    //console.log("logged out");
   }
 
   public isLoggedIn() {
     if (sessionStorage.getItem("token")) {
       let token: string = <string>sessionStorage.getItem("token");
-      console.log(jwt_decode(token));
+      //console.log(jwt_decode(token));
       const decodedToken = jwt_decode(token) as Token;
       let expirationDate: Date = new Date(0);
       expirationDate.setUTCSeconds(decodedToken.exp);
       if (expirationDate < new Date()) {
-        console.log("token expired");
+        //console.log("token expired");
         sessionStorage.removeItem("token");
         return false;
       }

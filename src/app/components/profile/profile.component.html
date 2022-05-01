@@ -1,1 +1,26 @@
-<p>profile works!</p>
+<div class="hero min-h-screen bg-base-200">
+  <div class="hero-content text-center">
+    <div class="max-w-md">
+      <div class="avatar mb-12">
+        <div class="w-40 rounded">
+          <img src="{{user.photo}}" alt="{{user.first_name}} {{user.last_name}}" title="{{user.first_name}} {{user.last_name}}"/>
+        </div>
+      </div>
+      <h1 class="text-5xl font-bold mb-4">Hallo {{user.first_name}}!</h1>
+      <span class="block mb-24">Registriert seit: {{user.created_at | date:'longDate'}}</span>
+      <div class="text-left">
+        <p class="text-2xl font-bold">Deine Daten:</p>
+        <p class="text-xl font-bold my-4">Vorname: <span class="font-normal">{{user.first_name}}</span></p>
+        <p class="text-xl font-bold my-4">Nachname: <span class="font-normal">{{user.last_name}}</span></p>
+        <p class="text-xl font-bold my-4">Alter: <span class="font-normal">{{user.age}}</span></p>
+        <p class="text-xl font-bold my-4">E-Mail: <span class="font-normal">{{user.email}}</span></p>
+        <p class="text-xl font-bold my-4">Telefonnummer: <span class="font-normal">{{user.phone_number}}</span></p>
+        <p class="text-xl font-bold my-4">Studiengang: <span class="font-normal">{{user.education}}</span></p>
+        <p class="text-xl font-bold my-4">Bachelor/Master: <span class="font-normal">{{user.degree}}</span></p>
+        <p class="text-xl font-bold my-4">Semester: <span class="font-normal">{{user.semester}}</span></p>
+        <p class="text-xl font-bold my-4">Rolle: <span class="font-normal">{{roleFlag}}</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
