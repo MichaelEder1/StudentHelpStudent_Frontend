@@ -8,7 +8,7 @@
       </label>
       <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
         <li><a routerLink="/lehrveranstaltungen">Lehrveranstaltungen</a></li>
-        <li><a routerLink="/neu">Angebot anlegen</a></li>
+        <li *ngIf="auth.isLoggedIn()"><a routerLink="/neu">Angebot anlegen</a></li>
       </ul>
     </div>
     <a routerLink="/" class="btn btn-ghost normal-case text-xl">Students help Students</a>
@@ -16,13 +16,13 @@
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal p-0">
       <li><a routerLink="/lehrveranstaltungen">Lehrveranstaltungen</a></li>
-      <li><a routerLink="/neu">Angebot anlegen</a></li>
+      <li *ngIf="auth.isLoggedIn()"><a routerLink="/neu">Angebot anlegen</a></li>
     </ul>
   </div>
   <div class="navbar-end">
-    <a routerLink="/login" class="btn">Login</a>
+    <a routerLink="/login" *ngIf="!auth.isLoggedIn()" class="btn">Login</a>
   </div>
-  <div class="dropdown dropdown-end">
+  <div class="dropdown dropdown-end" *ngIf="auth.isLoggedIn()">
     <label tabindex="0" class="btn btn-ghost btn-circle avatar">
       <div class="w-10 rounded-full">
         <img src="https://api.lorem.space/image/face?hash=33791" alt=""/>
@@ -32,7 +32,7 @@
       <li>
         <a routerLink="/profile" class="justify-between">Mein Profil</a>
       </li>
-      <li><a>Logout</a></li>
+      <li *ngIf="auth.isLoggedIn()"><a (click)="auth.logout()">Logout</a></li>
     </ul>
   </div>
 </nav>

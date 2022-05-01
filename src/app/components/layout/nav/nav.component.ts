@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AuthenticationService} from "../../../shared/authentification.service";
 
 @Component({
   selector: 'shs-nav',
@@ -9,7 +10,7 @@ export class NavComponent implements OnInit {
 
   desktop: boolean = true;
 
-  constructor() {
+  constructor(public auth: AuthenticationService) {
   }
 
   ngOnInit(): void {
