@@ -17,6 +17,5 @@ export class CourseListComponent implements OnInit {
 
   ngOnInit(): void {
     this.cs.getCourseByCode(this.programName).subscribe(res => this.courses = res);
-
   }
 }

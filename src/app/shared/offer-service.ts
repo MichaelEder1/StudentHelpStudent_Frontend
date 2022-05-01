@@ -1,32 +1,34 @@
 import {Injectable} from "@angular/core";
+import {Offer} from "./offer";
 import {HttpClient} from "@angular/common/http";
 import {catchError, Observable, retry, throwError} from "rxjs";
-import {Date} from "./Date";
 
 @Injectable()
-export class DateService {
-
+export class OfferService {
   private api = 'http://shs.s1910456008.student.kwmhgb.at/api';
 
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<Array<Date>> {
-    return this.http.get<Array<Date>>(`${this.api}/dates`)
+  getAll(): Observable<Array<Offer>> {
+    return this.http.get<Array<Offer>>(`${this.api}/offers`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
-  getSingle(code: string): Observable<Date> {
-    return this.http.get<Date>(`${this.api}/dates/${code}`)
+  getSingle(code: string): Observable<Offer> {
+    return this.http.get<Offer>(`${this.api}/offers/${code}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
-  getDatesForCourse(id: number): Observable<Array<Date>> {
-    return this.http.get<Array<Date>>(`${this.api}/course/${id}/dates`)
+  getOffersByCourse(course: string): Observable<Array<Offer>> {
+    return this.http.get<Array<Offer>>(`${this.api}/offers/${course}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
   private errorHandler(error: Error | any): Observable<any> {
     return throwError(error);
   }
+
 }
+
+

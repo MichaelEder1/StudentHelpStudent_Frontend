@@ -1,1 +1,7 @@
-<p>offer-list-item works!</p>
+<div class="card-body" *ngIf="offer && offer.isAvailable">
+  <h2 class="card-title" *ngIf="offer.title">{{offer.title}}</h2>
+  <p *ngIf="offer.information">{{offer.information.substring(0, 100) + "..."}}</p>
+  <div class="card-actions justify-end">
+    <a routerLink="/" class="btn btn-primary">mehr Erfahren</a>
+  </div>
+</div>

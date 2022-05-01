@@ -9,7 +9,6 @@ import {LoginComponent} from './components/login/login.component';
 import {HomeComponent} from './components/layout/home/home.component';
 import {CourseListComponent} from './components/course/course-list/course-list.component';
 import {CourseListItemComponent} from './components/course/course-list-item/course-list-item.component';
-import {CourseDetailsComponent} from './components/course/course-details/course-details.component';
 import {ProgramListComponent} from './components/program/program-list/program-list.component';
 import {ProgramListItemComponent} from './components/program/program-list-item/program-list-item.component';
 import {PageNotFoundComponent} from './components/layout/page-not-found/page-not-found.component';
@@ -23,6 +22,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { OfferListComponent } from './components/offer/offer-list/offer-list.component';
 import { OfferListItemComponent } from './components/offer/offer-list-item/offer-list-item.component';
 import { OfferDetailComponent } from './components/offer/offer-detail/offer-detail.component';
+import {OfferService} from "./shared/offer-service";
 
 @NgModule({
   declarations: [
@@ -33,7 +33,6 @@ import { OfferDetailComponent } from './components/offer/offer-detail/offer-deta
     HomeComponent,
     CourseListComponent,
     CourseListItemComponent,
-    CourseDetailsComponent,
     ProgramListComponent,
     ProgramListItemComponent,
     PageNotFoundComponent,
@@ -49,7 +48,7 @@ import { OfferDetailComponent } from './components/offer/offer-detail/offer-deta
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ProgramService, CourseService, DateService],
+  providers: [ProgramService, CourseService, DateService, OfferService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
