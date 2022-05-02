@@ -1,0 +1,45 @@
+<div class="hero min-h-screen bg-base-200">
+  <div class="hero-content text-center">
+    <div class="max-w-md">
+      <h1 class="text-5xl font-bold mb-12">Angebot erstellen</h1>
+      <form class="max-w-full" [formGroup]="offerForm">
+        <input type="hidden" formControlName="id">
+        <input type="hidden" formControlName="user">
+
+        <div class="form-control w-full max-w-xs">
+          <label class="label">
+            <span class="label-text">Titel</span>
+          </label>
+          <input type="text" formControlName="title" placeholder="Titel des Angebots" class="input input-bordered w-full max-w-xs">
+          <label class="label">
+            <span class="label-text-alt" *ngIf="errors['title']">{{errors['title']}}</span>
+          </label>
+        </div>
+
+        <div class="form-control w-full max-w-xs">
+          <label class="label">
+            <span class="label-text">Information</span>
+          </label>
+          <input type="text" formControlName="information" placeholder="Information zum Angebot" class="input input-bordered w-full max-w-xs">
+          <label class="label">
+            <span class="label-text-alt" *ngIf="errors['information']">{{errors['information']}}</span>
+          </label>
+        </div>
+
+        <div class="form-control w-full max-w-xs">
+          <label class="label">
+            <span class="label-text">Lehrveranstaltung</span>
+          </label>
+          <select formControlName="lehrveranstaltung" class="input input-bordered w-full max-w-xs">
+            <option disabled selected hidden value="-1">Bitte wählen ...</option>
+            <option *ngFor="let course of courses" [value]="course">{{course.course_name}}</option>
+          </select>
+          <label class="label">
+            <span class="label-text-alt" *ngIf="errors['lehrveranstaltung']">{{errors['lehrveranstaltung']}}</span>
+          </label>
+        </div>
+        <button type="submit" [disabled]="offerForm.invalid" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg">Speichern</button>
+      </form>
+    </div>
+  </div>
+</div>

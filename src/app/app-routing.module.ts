@@ -10,10 +10,12 @@ import {DatenschutzComponent} from "./components/datenschutz/datenschutz.compone
 import {ProfileComponent} from "./components/profile/profile.component";
 import {OfferListComponent} from "./components/offer/offer-list/offer-list.component";
 import {OfferDetailComponent} from "./components/offer/offer-detail/offer-detail.component";
+import {FormComponent} from "./components/form/form.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
+  {path: 'neu', component: FormComponent},
   {path: 'lehrveranstaltungen', component: ProgramListComponent},
   {path: 'lehrveranstaltungen/:course', component: CourseListComponent},
   {path: 'lehrveranstaltungen/:program/:course/angebote', component: OfferListComponent},

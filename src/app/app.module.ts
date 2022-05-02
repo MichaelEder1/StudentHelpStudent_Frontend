@@ -32,6 +32,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {UserService} from "./shared/user-service";
 import {registerLocaleData} from "@angular/common";
 import localeDE from '@angular/common/locales/de';
+import { FormComponent } from './components/form/form.component';
 
 registerLocaleData(localeDE);
 
@@ -53,6 +54,7 @@ registerLocaleData(localeDE);
     OfferListComponent,
     OfferListItemComponent,
     OfferDetailComponent,
+    FormComponent,
   ],
   imports: [
     BrowserModule,

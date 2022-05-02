@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {catchError, Observable, retry, throwError} from "rxjs";
-import {Date} from "./Date";
+import {DateObj} from "./Date";
 
 @Injectable()
 export class DateService {
@@ -11,18 +11,18 @@ export class DateService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<Array<Date>> {
-    return this.http.get<Array<Date>>(`${this.api}/dates`)
+  getAll(): Observable<Array<DateObj>> {
+    return this.http.get<Array<DateObj>>(`${this.api}/dates`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
-  getSingle(code: string): Observable<Date> {
-    return this.http.get<Date>(`${this.api}/dates/${code}`)
+  getSingle(code: string): Observable<DateObj> {
+    return this.http.get<DateObj>(`${this.api}/dates/${code}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
-  getDatesForOffer(id: number): Observable<Array<Date>> {
-    return this.http.get<Array<Date>>(`${this.api}/dates/${id}`)
+  getDatesForOffer(id: number): Observable<Array<DateObj>> {
+    return this.http.get<Array<DateObj>>(`${this.api}/dates/${id}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 

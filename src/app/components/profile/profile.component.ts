@@ -14,7 +14,6 @@ export class ProfileComponent implements OnInit {
   roleFlag:string = "Nachhilfe-Suchender";
   constructor(private us: UserService) {
     this.userId = Number(sessionStorage.getItem("userId"));
-    console.log(this.userId);
   }
 
   ngOnInit(): void {

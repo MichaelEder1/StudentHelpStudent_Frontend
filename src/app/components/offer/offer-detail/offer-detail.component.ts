@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {DateService} from "../../../shared/date-service";
 import {ActivatedRoute} from "@angular/router";
-import {Date} from "../../../shared/Date";
+import {DateObj} from "../../../shared/Date";
 
 @Component({
   selector: 'shs-offer-detail',
@@ -10,7 +10,7 @@ import {Date} from "../../../shared/Date";
 })
 export class OfferDetailComponent implements OnInit {
 
-  dates: Date[] = [];
+  dates: DateObj[] = [];
   offerId: number = 0;
 
   constructor(private ds:DateService, private route:ActivatedRoute) {
