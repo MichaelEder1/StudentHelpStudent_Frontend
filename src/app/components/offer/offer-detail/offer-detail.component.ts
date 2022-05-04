@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DateService} from "../../../shared/date-service";
 import {ActivatedRoute} from "@angular/router";
 import {DateObj} from "../../../shared/Date";
+import {DateFactory} from "../../../shared/date-factory";
 
 @Component({
   selector: 'shs-offer-detail',
