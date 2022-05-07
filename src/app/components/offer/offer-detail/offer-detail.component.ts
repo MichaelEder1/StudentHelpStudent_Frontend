@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DateService} from "../../../shared/date-service";
 import {ActivatedRoute} from "@angular/router";
 import {DateObj} from "../../../shared/Date";
@@ -14,7 +14,7 @@ export class OfferDetailComponent implements OnInit {
   dates: DateObj[] = [];
   offerId: number = 0;
 
-  constructor(private ds:DateService, private route:ActivatedRoute) {
+  constructor(private ds: DateService, private route: ActivatedRoute) {
     this.offerId = route.snapshot.params['id'];
   }
 
@@ -24,10 +24,10 @@ export class OfferDetailComponent implements OnInit {
 
   getDate(date: Date) {
     let dateString = date.toString();
-    let dateSubstring = dateString.substring(0,10);
+    let dateSubstring = dateString.substring(0, 10);
     let splittedDate = dateSubstring.split('-');
     let year = Number(splittedDate[0]);
-    let month = (Number(splittedDate[1])-1);
+    let month = (Number(splittedDate[1]) - 1);
     let day = Number(splittedDate[2]);
 
     let timeString = dateString.substring(11).trim();
@@ -36,6 +36,6 @@ export class OfferDetailComponent implements OnInit {
     let minute = Number(splittedTime[1]);
     let second = Number(splittedTime[2]);
 
-    return new Date(year,month,day,hour,minute,second);
+    return new Date(year, month, day, hour, minute, second);
   }
 }

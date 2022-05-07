@@ -1,0 +1,16 @@
+.course-image{
+  height: 30vh;
+  opacity: 0.15;
+}
+
+.tutor img{
+  width: 200px;
+  height: 200px;
+}
+
+.content{
+  @media screen and (min-width: 1920px) {
+    margin-bottom: 10rem;
+  }
+ @apply mb-20;
+}

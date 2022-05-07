@@ -1,21 +1,45 @@
-<img src="{{dates[0].courses.image}}" alt="{{dates[0].offers.title}}">
-<p>Angebots-Titel: {{dates[0].offers.title}}</p>
-<p>Angebots-Information: {{dates[0].offers.information}}</p>
-<p>Studiengang, LVA, Semester: {{dates[0].programs.program_name}}, {{dates[0].courses.course_name}}
-  , {{dates[0].courses.semester}}.
-  Semester</p>
-<p>Anbieter: {{dates[0].tutors.first_name}} {{dates[0].tutors.last_name}}</p>
-<p>E-Mail: {{dates[0].tutors.email}}</p>
-<img src="{{dates[0].tutors.photo}}" alt="{{dates[0].tutors.first_name}} {{dates[0].tutors.last_name}}">
+<div class="max-h-screen">
+  <div class="details-header relative mb-12">
+    <img class="w-full object-cover course-image" src="{{dates[0].courses.image}}" alt="{{dates[0].offers.title}}">
+    <div class="header-text absolute text-center left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <h1 class="mb-5 text-5xl font-bold">{{dates[0].offers.title}}</h1>
+      <h2 class="mb-5 text-xl font-bold">{{dates[0].programs.program_name}} | {{dates[0].courses.course_name}}
+        | {{dates[0].courses.semester}}.
+        Semester</h2>
+    </div>
+  </div>
 
-<div *ngFor="let date of dates">
-  <div *ngIf="!date.accepted" class="card w-96 bg-base-100 shadow-xl">
-    <div class="card-body">
-      <h2 class="card-title">{{date.offers.title}}</h2>
-      <p>freier Termin am: {{getDate(date.date_time)| date:'longDate'}} um {{getDate(date.date_time)| date:'shortTime'}}</p>
-      <div class="card-actions justify-end">
-        <button class="btn btn-primary">jetzt buchen</button>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center mx-4 content">
+    <div>
+      <p class="text-xl mb-4 font-bold">Informationen zum Angebot:</p>
+      <p>{{dates[0].offers.information}}</p>
+    </div>
+    <div class="dates flex flex-wrap gap-4 justify-center">
+      <div *ngFor="let date of dates">
+        <div *ngIf="!date.accepted" class="card w-96 bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title">{{date.offers.title}}</h2>
+            <p>freier Termin am: {{getDate(date.date_time)| date:'longDate'}}
+              um {{getDate(date.date_time)| date:'shortTime'}}</p>
+            <div class="card-actions justify-end">
+              <button class="btn btn-primary">jetzt buchen</button>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
+
+    <div class="border border-1 border-red-50 rounded-md tutor p-4">
+      <img class="rounded-full m-auto object-cover mb-4" src="{{dates[0].tutors.photo}}"
+           alt="{{dates[0].tutors.first_name}} {{dates[0].tutors.last_name}}">
+      <p class="font-bold text-xl mb-3">{{dates[0].tutors.first_name}} {{dates[0].tutors.last_name}}
+        , {{dates[0].tutors.age}} Jahre</p>
+      <p class="font-bold text-xl mb-6">Informationen über {{dates[0].tutors.first_name}}:</p>
+      <p>Studium: {{dates[0].tutors.education}} ({{dates[0].tutors.degree}})</p>
+      <p>aktuelles Semester: {{dates[0].tutors.semester}}. Semester</p>
+      <br>
+      <p>E-Mail: <a [href]="'mailto:' + dates[0].tutors.email">{{dates[0].tutors.email}}</a></p>
+      <p>Telefon: <a [href]="'tel:' + dates[0].tutors.phone_number">{{dates[0].tutors.phone_number}}</a></p>
     </div>
   </div>
 </div>
