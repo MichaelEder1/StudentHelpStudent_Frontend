@@ -1,3 +1,21 @@
+<img src="{{dates[0].courses.image}}" alt="{{dates[0].offers.title}}">
+<p>Angebots-Titel: {{dates[0].offers.title}}</p>
+<p>Angebots-Information: {{dates[0].offers.information}}</p>
+<p>Studiengang, LVA, Semester: {{dates[0].programs.program_name}}, {{dates[0].courses.course_name}}
+  , {{dates[0].courses.semester}}.
+  Semester</p>
+<p>Anbieter: {{dates[0].tutors.first_name}} {{dates[0].tutors.last_name}}</p>
+<p>E-Mail: {{dates[0].tutors.email}}</p>
+<img src="{{dates[0].tutors.photo}}" alt="{{dates[0].tutors.first_name}} {{dates[0].tutors.last_name}}">
+
 <div *ngFor="let date of dates">
-  <p>{{date.courses.course_name}}</p>
+  <div *ngIf="!date.accepted" class="card w-96 bg-base-100 shadow-xl">
+    <div class="card-body">
+      <h2 class="card-title">{{date.offers.title}}</h2>
+      <p>freier Termin am: {{getDate(date.date_time)| date:'longDate'}} um {{getDate(date.date_time)| date:'shortTime'}}</p>
+      <div class="card-actions justify-end">
+        <button class="btn btn-primary">jetzt buchen</button>
+      </div>
+    </div>
+  </div>
 </div>
