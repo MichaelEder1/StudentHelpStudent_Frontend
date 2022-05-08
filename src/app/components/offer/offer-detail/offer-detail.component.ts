@@ -3,6 +3,10 @@ import {DateService} from "../../../shared/date-service";
 import {ActivatedRoute} from "@angular/router";
 import {DateObj} from "../../../shared/Date";
 import {DateFactory} from "../../../shared/date-factory";
+import {UserService} from "../../../shared/user-service";
+import {User} from "../../../shared/user";
+import {UserFactory} from "../../../shared/user-factory";
+import {AuthenticationService} from "../../../shared/authentification.service";
 
 @Component({
   selector: 'shs-offer-detail',
@@ -13,13 +17,19 @@ export class OfferDetailComponent implements OnInit {
 
   dates: DateObj[] = [];
   offerId: number = 0;
+  userId: number = 0;
+  user: User = UserFactory.empty();
 
-  constructor(private ds: DateService, private route: ActivatedRoute) {
+  constructor(private ds: DateService, private route: ActivatedRoute, private us: UserService, public auth: AuthenticationService) {
     this.offerId = route.snapshot.params['id'];
+    this.userId = Number(sessionStorage.getItem("userId"));
+    console.log(this.userId);
   }
 
   ngOnInit(): void {
     this.ds.getDatesForOffer(this.offerId).subscribe(res => this.dates = res);
+    this.us.getUser(this.userId).subscribe(res => this.user = res);
+    window.setTimeout(() => console.log(this.user), 500)
   }
 
   getDate(date: Date) {

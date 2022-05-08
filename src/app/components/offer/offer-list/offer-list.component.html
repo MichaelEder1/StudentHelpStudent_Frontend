@@ -1,8 +1,11 @@
 <h1 class="text-5xl font-bold text-center mt-16">Schritt 3: Wähle ein passendes Angebot aus</h1>
 <div class="hero min-h-screen flex justify-center flex-wrap gap-8">
   <div *ngIf="offers.length===0" class="text-center">
-    <h1 class="text-5xl font-bold mb-16">Derzeit sind keine Angebote für {{courseName}} verfügbar. <br> Schau doch später nochmal vorbei!</h1>
+    <progress class="progress w-56"></progress>
+    <h1 class="text-5xl font-bold mb-16">Derzeit sind keine Angebote für {{courseName}} verfügbar. <br> Schau doch
+      später nochmal vorbei!</h1>
     <a class="btn btn-primary" routerLink="/">zur Startseite</a>
   </div>
-  <div *ngFor="let offer of offers" class="card w-96 bg-base-100 shadow-xl shs-offer-list-item" [courseName]="courseName" [offer]="offer"></div>
+  <div *ngFor="let offer of offers" class="card w-96 bg-base-100 shadow-xl shs-offer-list-item"
+       [courseName]="courseName" [offer]="offer"></div>
 </div>

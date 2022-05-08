@@ -22,7 +22,10 @@
             <p>freier Termin am: {{getDate(date.date_time)| date:'longDate'}}
               um {{getDate(date.date_time)| date:'shortTime'}}</p>
             <div class="card-actions justify-end">
-              <button class="btn btn-primary">jetzt buchen</button>
+              <button *ngIf="auth.isLoggedIn && date.tutors.id==userId" class="btn btn-secondary">Termin löschen
+              </button>
+              <button *ngIf="auth.isLoggedIn()" class="btn btn-primary">jetzt buchen</button>
+              <p class="text-xs text-red-700" *ngIf="auth.isLoggedOut()">Du musst dich einloggen, um Termine buchen zu können!</p>
             </div>
           </div>
         </div>
