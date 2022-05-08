@@ -4,7 +4,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {OfferService} from "../../shared/offer-service";
 import {DateFactory} from "../../shared/date-factory";
 import {CourseService} from "../../shared/course-service";
-import {Course} from "../../shared/offer";
+import {Course, Program} from "../../shared/offer";
+import {ProgramService} from "../../shared/program-service";
 
 @Component({
   selector: 'shs-form',
@@ -16,7 +17,10 @@ export class FormComponent implements OnInit {
 
   offerForm: FormGroup;
   date = DateFactory.empty();
+  allCourses: Course[] = [];
   courses: Course[] = [];
+  programs: Program[] = [];
+  selectedItem: string = "";
 
   errors: { [key: string]: string } = {};
 
@@ -28,6 +32,7 @@ export class FormComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private os: OfferService,
               private cs: CourseService,
+              private ps: ProgramService,
               private route: ActivatedRoute,
               private router: Router) {
     this.offerForm = this.fb.group({});
@@ -35,8 +40,16 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.ps.getAll().subscribe(res => this.programs = res);
+    this.cs.getAll().subscribe(res => this.allCourses = res);
+    window.setTimeout(() => console.log(this.selectedItem), 500);
+  }
 
-    this.cs.getAll().subscribe(res => this.courses = res);
-    window.setTimeout(()=>console.log(this.courses),500);
+  loadCourses($event: any) {
+    let selectedValue = Number((<HTMLInputElement>document.querySelector("#studiengang")).value);
+    let res: Course[] = [];
+    for (let course of this.allCourses) {
+    }
+    this.courses = this.allCourses;
   }
 }

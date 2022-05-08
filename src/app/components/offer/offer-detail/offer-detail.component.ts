@@ -29,7 +29,7 @@ export class OfferDetailComponent implements OnInit {
   ngOnInit(): void {
     this.ds.getDatesForOffer(this.offerId).subscribe(res => this.dates = res);
     this.us.getUser(this.userId).subscribe(res => this.user = res);
-    window.setTimeout(() => console.log(this.user), 500)
+    window.setTimeout(() => console.log(this.dates), 500)
   }
 
   getDate(date: Date) {

@@ -10,7 +10,8 @@
           <label class="label">
             <span class="label-text">Titel</span>
           </label>
-          <input type="text" formControlName="title" placeholder="Titel des Angebots" class="input input-bordered w-full max-w-xs">
+          <input type="text" formControlName="title" placeholder="Titel des Angebots"
+                 class="input input-bordered w-full max-w-xs">
           <label class="label">
             <span class="label-text-alt" *ngIf="errors['title']">{{errors['title']}}</span>
           </label>
@@ -20,9 +21,24 @@
           <label class="label">
             <span class="label-text">Information</span>
           </label>
-          <input type="text" formControlName="information" placeholder="Information zum Angebot" class="input input-bordered w-full max-w-xs">
+          <input type="text" formControlName="information" placeholder="Information zum Angebot"
+                 class="input input-bordered w-full max-w-xs">
           <label class="label">
             <span class="label-text-alt" *ngIf="errors['information']">{{errors['information']}}</span>
+          </label>
+        </div>
+
+        <div class="form-control w-full max-w-xs">
+          <label class="label">
+            <span class="label-text">Studiengang</span>
+          </label>
+          <select formControlName="studiengang" ngModel="selectedItem" id="studiengang" (change)="loadCourses($event)"
+                  class="input input-bordered w-full max-w-xs">
+            <option disabled selected hidden value="-1">Bitte wählen ...</option>
+            <option *ngFor="let program of programs" value="{{program.program_name}}">{{program.program_name}}</option>
+          </select>
+          <label class="label">
+            <span class="label-text-alt" *ngIf="errors['studiengang']">{{errors['studiengang']}}</span>
           </label>
         </div>
 
@@ -38,7 +54,9 @@
             <span class="label-text-alt" *ngIf="errors['lehrveranstaltung']">{{errors['lehrveranstaltung']}}</span>
           </label>
         </div>
-        <button type="submit" [disabled]="offerForm.invalid" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg">Speichern</button>
+        <button type="submit" [disabled]="offerForm.invalid" class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg">
+          Speichern
+        </button>
       </form>
     </div>
   </div>

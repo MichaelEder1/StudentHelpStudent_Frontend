@@ -22,16 +22,17 @@
             <p>freier Termin am: {{getDate(date.date_time)| date:'longDate'}}
               um {{getDate(date.date_time)| date:'shortTime'}}</p>
             <div class="card-actions justify-end">
-              <button *ngIf="auth.isLoggedIn && date.tutors.id==userId" class="btn btn-secondary">Termin löschen
+              <button *ngIf="auth.isLoggedIn && date.tutors.id==userId" class="btn btn-secondary">
+                Termin löschen
               </button>
               <button *ngIf="auth.isLoggedIn()" class="btn btn-primary">jetzt buchen</button>
-              <p class="text-xs text-red-700" *ngIf="auth.isLoggedOut()">Du musst dich einloggen, um Termine buchen zu können!</p>
+              <p class="text-xs text-red-700" *ngIf="auth.isLoggedOut()">Du musst dich einloggen, um Termine buchen zu
+                können!</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <div class="border border-1 border-red-50 rounded-md tutor p-4">
       <img class="rounded-full m-auto object-cover mb-4" src="{{dates[0].tutors.photo}}"
            alt="{{dates[0].tutors.first_name}} {{dates[0].tutors.last_name}}">
@@ -44,5 +45,23 @@
       <p>E-Mail: <a [href]="'mailto:' + dates[0].tutors.email">{{dates[0].tutors.email}}</a></p>
       <p>Telefon: <a [href]="'tel:' + dates[0].tutors.phone_number">{{dates[0].tutors.phone_number}}</a></p>
     </div>
+  </div>
+  <div class="buttons flex gap-8 justify-center mb-8">
+    <button *ngIf="auth.isLoggedIn && dates[0].tutors.id==userId" class="btn btn-secondary">
+      <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+           xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+      </svg>
+      Angebot löschen
+    </button>
+    <button *ngIf="auth.isLoggedIn && dates[0].tutors.id==userId" class="btn btn-primary">
+      <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+           xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+      </svg>
+      Angebot bearbeiten
+    </button>
   </div>
 </div>

@@ -8,7 +8,7 @@ export class Course {
     public image: string,
     public description: string,
     public semester: number,
-    public program: Program[]
-  ) {
+    public programs: Program[],
+) {
   }
 }
