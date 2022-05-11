@@ -22,16 +22,40 @@
             <p>freier Termin am: {{getDate(date.date_time)| date:'longDate'}}
               um {{getDate(date.date_time)| date:'shortTime'}}</p>
             <div class="card-actions justify-end">
-              <button *ngIf="auth.isLoggedIn && date.tutors.id==userId" class="btn btn-secondary">
+              <label *ngIf="auth.isLoggedIn()" for="my-modal-delete-{{date.id}}" class="btn btn-error modal-button">
                 Termin löschen
-              </button>
-              <button *ngIf="auth.isLoggedIn()" class="btn btn-primary">jetzt buchen</button>
+              </label>
+              <!-- The button to open modal -->
+              <label *ngIf="auth.isLoggedIn()" for="my-modal-{{date.id}}" class="btn btn-primary modal-button">jetzt
+                buchen</label>
               <p class="text-xs text-red-700" *ngIf="auth.isLoggedOut()">Du musst dich einloggen, um Termine buchen zu
                 können!</p>
             </div>
           </div>
+          <!-- Put this part before </body> tag -->
+          <input type="checkbox" id="my-modal-{{date.id}}" class="modal-toggle"/>
+          <label for="my-modal-{{date.id}}" class="modal cursor-pointer">
+            <label class="modal-box relative" for="my-modal-{{date.id}}">
+              <h3 class="text-lg font-bold">Termin buchen!</h3>
+              <p class="py-4">Möchtest du den Termin am <br><strong>{{getDate(date.date_time)| date:'longDate'}}
+                um {{getDate(date.date_time)| date:'shortTime'}}</strong><br> wirklich buchen?</p>
+              <button class="btn btn-primary">jetzt verbindlich buchen!</button>
+            </label>
+          </label>
+
+          <input type="checkbox" id="my-modal-delete-{{date.id}}" class="modal-toggle"/>
+          <label for="my-modal-delete-{{date.id}}" class="modal cursor-pointer">
+            <label class="modal-box relative" for="my-modal-delete-{{date.id}}">
+              <h3 class="text-lg font-bold">Termin löschen!</h3>
+              <p class="py-4">Möchtest du den Termin am <br><strong>{{getDate(date.date_time)| date:'longDate'}}
+                um {{getDate(date.date_time)| date:'shortTime'}}</strong><br> wirklich löschen?</p>
+              <button class="btn btn-error">Termin löschen!</button>
+            </label>
+          </label>
+
         </div>
       </div>
+      <button class="btn btn-info text-white">Kein passender Termin dabei?</button>
     </div>
     <div class="border border-1 border-red-50 rounded-md tutor p-4">
       <img class="rounded-full m-auto object-cover mb-4" src="{{dates[0].tutors.photo}}"
@@ -47,14 +71,15 @@
     </div>
   </div>
   <div class="buttons flex gap-8 justify-center mb-8">
-    <button *ngIf="auth.isLoggedIn && dates[0].tutors.id==userId" class="btn btn-secondary">
+    <label *ngIf="auth.isLoggedIn && dates[0].tutors.id==userId" for="my-modal-delete"
+           class="btn btn-error modal-button">
       <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
            xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
       </svg>
       Angebot löschen
-    </button>
+    </label>
     <button *ngIf="auth.isLoggedIn && dates[0].tutors.id==userId" class="btn btn-primary">
       <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
            xmlns="http://www.w3.org/2000/svg">
@@ -63,5 +88,18 @@
       </svg>
       Angebot bearbeiten
     </button>
+
+    <!-- Put this part before </body> tag -->
+    <input type="checkbox" id="my-modal-delete" class="modal-toggle"/>
+    <label for="my-modal-delete" class="modal cursor-pointer">
+      <label class="modal-box relative text-center" for="my-modal-delete">
+        <h3 class="text-lg font-bold">Angebot löschen!</h3>
+        <p class="py-4">Möchtest du das Angebot
+          <i><strong>{{dates[0].offers.title}}</strong></i>
+          wirklich löschen?
+        </p>
+        <button class="btn btm-error">Angebot löschen</button>
+      </label>
+    </label>
   </div>
 </div>
