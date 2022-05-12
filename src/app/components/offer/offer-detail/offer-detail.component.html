@@ -1,4 +1,4 @@
-<div class="max-h-screen">
+<div class="min-h-screen">
   <div class="details-header relative mb-12">
     <img class="w-full object-cover course-image" src="{{dates[0].courses.image}}" alt="{{dates[0].offers.title}}">
     <div class="header-text absolute text-center left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -14,48 +14,52 @@
       <p class="text-xl mb-4 font-bold">Informationen zum Angebot:</p>
       <p>{{dates[0].offers.information}}</p>
     </div>
-    <div class="dates flex flex-wrap gap-4 justify-center">
-      <div *ngFor="let date of dates">
-        <div *ngIf="!date.accepted" class="card w-96 bg-base-100 shadow-xl">
-          <div class="card-body">
-            <h2 class="card-title">{{date.offers.title}}</h2>
-            <p>freier Termin am: {{getDate(date.date_time)| date:'longDate'}}
-              um {{getDate(date.date_time)| date:'shortTime'}}</p>
-            <div class="card-actions justify-end">
-              <label *ngIf="auth.isLoggedIn()" for="my-modal-delete-{{date.id}}" class="btn btn-error modal-button">
-                Termin löschen
-              </label>
-              <!-- The button to open modal -->
-              <label *ngIf="auth.isLoggedIn()" for="my-modal-{{date.id}}" class="btn btn-primary modal-button">jetzt
-                buchen</label>
-              <p class="text-xs text-red-700" *ngIf="auth.isLoggedOut()">Du musst dich einloggen, um Termine buchen zu
-                können!</p>
+    <div class="dates">
+      <p class="text-xl mb-4 font-bold !block">Freie Termine:</p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <div *ngFor="let date of dates">
+          <div *ngIf="!date.accepted" class="card w-96 bg-base-100 shadow-xl">
+            <div class="card-body">
+              <h2 class="card-title">{{date.offers.title}}</h2>
+              <p>freier Termin am: {{getDate(date.date_time)| date:'longDate'}}
+                um {{getDate(date.date_time)| date:'shortTime'}}</p>
+              <div class="card-actions justify-end">
+                <label *ngIf="auth.isLoggedIn() &&date.tutors.id==userId" for="my-modal-delete-{{date.id}}"
+                       class="btn btn-error modal-button">
+                  Termin löschen
+                </label>
+                <!-- The button to open modal -->
+                <label *ngIf="auth.isLoggedIn()" for="my-modal-{{date.id}}" class="btn btn-primary modal-button">jetzt
+                  buchen</label>
+                <p class="text-xs text-red-700" *ngIf="auth.isLoggedOut()">Du musst dich einloggen, um Termine buchen zu
+                  können!</p>
+              </div>
             </div>
+            <!-- Put this part before </body> tag -->
+            <input type="checkbox" id="my-modal-{{date.id}}" class="modal-toggle"/>
+            <label for="my-modal-{{date.id}}" class="modal cursor-pointer">
+              <label class="modal-box relative" for="my-modal-{{date.id}}">
+                <h3 class="text-lg font-bold">Termin buchen!</h3>
+                <p class="py-4">Möchtest du den Termin am <br><strong>{{getDate(date.date_time)| date:'longDate'}}
+                  um {{getDate(date.date_time)| date:'shortTime'}}</strong><br> wirklich buchen?</p>
+                <button class="btn btn-primary">jetzt verbindlich buchen!</button>
+              </label>
+            </label>
+
+            <input type="checkbox" id="my-modal-delete-{{date.id}}" class="modal-toggle"/>
+            <label for="my-modal-delete-{{date.id}}" class="modal cursor-pointer">
+              <label class="modal-box relative" for="my-modal-delete-{{date.id}}">
+                <h3 class="text-lg font-bold">Termin löschen!</h3>
+                <p class="py-4">Möchtest du den Termin am
+                  <br><strong>{{getDate(date.date_time)| date:'longDate'}}
+                    um {{getDate(date.date_time)| date:'shortTime'}}</strong><br> wirklich löschen?</p>
+                <button class="btn btn-error" (click)="removeDate(date.id)">Termin löschen!</button>
+              </label>
+            </label>
           </div>
-          <!-- Put this part before </body> tag -->
-          <input type="checkbox" id="my-modal-{{date.id}}" class="modal-toggle"/>
-          <label for="my-modal-{{date.id}}" class="modal cursor-pointer">
-            <label class="modal-box relative" for="my-modal-{{date.id}}">
-              <h3 class="text-lg font-bold">Termin buchen!</h3>
-              <p class="py-4">Möchtest du den Termin am <br><strong>{{getDate(date.date_time)| date:'longDate'}}
-                um {{getDate(date.date_time)| date:'shortTime'}}</strong><br> wirklich buchen?</p>
-              <button class="btn btn-primary">jetzt verbindlich buchen!</button>
-            </label>
-          </label>
-
-          <input type="checkbox" id="my-modal-delete-{{date.id}}" class="modal-toggle"/>
-          <label for="my-modal-delete-{{date.id}}" class="modal cursor-pointer">
-            <label class="modal-box relative" for="my-modal-delete-{{date.id}}">
-              <h3 class="text-lg font-bold">Termin löschen!</h3>
-              <p class="py-4">Möchtest du den Termin am <br><strong>{{getDate(date.date_time)| date:'longDate'}}
-                um {{getDate(date.date_time)| date:'shortTime'}}</strong><br> wirklich löschen?</p>
-              <button class="btn btn-error">Termin löschen!</button>
-            </label>
-          </label>
-
         </div>
       </div>
-      <button class="btn btn-info text-white">Kein passender Termin dabei?</button>
+      <button class="btn btn-info mt-8 text-white">Kein passender Termin dabei?</button>
     </div>
     <div class="border border-1 border-red-50 rounded-md tutor p-4">
       <img class="rounded-full m-auto object-cover mb-4" src="{{dates[0].tutors.photo}}"
@@ -98,7 +102,7 @@
           <i><strong>{{dates[0].offers.title}}</strong></i>
           wirklich löschen?
         </p>
-        <button class="btn btm-error">Angebot löschen</button>
+        <button class="btn btn-error" (click)="removeOffer()">Angebot löschen</button>
       </label>
     </label>
   </div>

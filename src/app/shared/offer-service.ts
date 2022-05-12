@@ -29,6 +29,10 @@ export class OfferService {
     return throwError(error);
   }
 
+  remove(id: number) {
+    return this.http.delete<Offer>(`${this.api}/offers/${id}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
 }
 
 
