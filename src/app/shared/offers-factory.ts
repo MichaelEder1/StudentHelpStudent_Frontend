@@ -1,9 +1,11 @@
-import {Offer} from "./offer";
+import {Offer, Program} from "./offer";
+import {ProgramFactory} from "./program-factory";
+import {CourseFactory} from "./course-factory";
 
 export class OffersFactory {
 
   static empty() {
-    return new Offer(0, "", "", true, [], [], []);
+    return new Offer(0, "", "", true, CourseFactory.empty(), ProgramFactory.empty(), []);
   }
 
   static fromObject(rawOffer: any): Offer {

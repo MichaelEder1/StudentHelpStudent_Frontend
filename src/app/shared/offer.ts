@@ -12,8 +12,8 @@ export class Offer {
     public title: string,
     public information: string,
     public isAvailable: boolean,
-    public course: Course[],
-    public program: Program[],
+    public course: Course,
+    public program: Program,
     public user: User[]
   ) {
   }
