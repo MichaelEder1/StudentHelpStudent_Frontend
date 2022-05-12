@@ -32,20 +32,7 @@ export class OfferDetailComponent implements OnInit {
   }
 
   getDate(date: Date) {
-    let dateString = date.toString();
-    let dateSubstring = dateString.substring(0, 10);
-    let splittedDate = dateSubstring.split('-');
-    let year = Number(splittedDate[0]);
-    let month = (Number(splittedDate[1]) - 1);
-    let day = Number(splittedDate[2]);
-
-    let timeString = dateString.substring(11).trim();
-    let splittedTime = timeString.split(':');
-    let hour = Number(splittedTime[0]);
-    let minute = Number(splittedTime[1]);
-    let second = Number(splittedTime[2]);
-
-    return new Date(year, month, day, hour, minute, second);
+    return this.ds.getDate(date);
   }
 
   removeOffer() {
@@ -56,5 +43,9 @@ export class OfferDetailComponent implements OnInit {
   removeDate(id: number) {
     this.ds.remove(id).subscribe(res => this.router.navigate(['../'], {relativeTo: this.route}));
     this.toastr.success("Der Termin wurde gelöscht!");
+  }
+
+  isInFuture(dateTime: Date): Boolean {
+    return (this.getDate(dateTime) >= new Date());
   }
 }

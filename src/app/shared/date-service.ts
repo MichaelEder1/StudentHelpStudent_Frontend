@@ -35,4 +35,21 @@ export class DateService {
     return this.http.delete<Date>(`${this.api}/dates/${id}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
+
+  getDate(date: Date) {
+    let dateString = date.toString();
+    let dateSubstring = dateString.substring(0, 10);
+    let splittedDate = dateSubstring.split('-');
+    let year = Number(splittedDate[0]);
+    let month = (Number(splittedDate[1]) - 1);
+    let day = Number(splittedDate[2]);
+
+    let timeString = dateString.substring(11).trim();
+    let splittedTime = timeString.split(':');
+    let hour = Number(splittedTime[0]);
+    let minute = Number(splittedTime[1]);
+    let second = Number(splittedTime[2]);
+
+    return new Date(year, month, day, hour, minute, second);
+  }
 }

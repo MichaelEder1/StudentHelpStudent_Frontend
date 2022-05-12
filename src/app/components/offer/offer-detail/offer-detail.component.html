@@ -1,5 +1,5 @@
 <div class="min-h-screen">
-  <div class="details-header relative mb-12">
+  <div class="details-header relative mb-12" *ngIf="dates[0] && dates[0].courses && dates[0].programs && dates[0].offers">
     <img class="w-full object-cover course-image" src="{{dates[0].courses.image}}" alt="{{dates[0].offers.title}}">
     <div class="header-text absolute text-center left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <h1 class="mb-5 text-5xl font-bold">{{dates[0].offers.title}}</h1>
@@ -18,7 +18,7 @@
       <p class="text-xl mb-4 font-bold !block">Freie Termine:</p>
       <div class="flex flex-wrap gap-4 justify-center">
         <div *ngFor="let date of dates">
-          <div *ngIf="!date.accepted" class="card w-96 bg-base-100 shadow-xl">
+          <div *ngIf="!date.accepted && isInFuture(date.date_time)" class="card w-96 bg-base-100 shadow-xl">
             <div class="card-body">
               <h2 class="card-title">{{date.offers.title}}</h2>
               <p>freier Termin am: {{getDate(date.date_time)| date:'longDate'}}
@@ -29,7 +29,7 @@
                   Termin löschen
                 </label>
                 <!-- The button to open modal -->
-                <label *ngIf="auth.isLoggedIn()" for="my-modal-{{date.id}}" class="btn btn-primary modal-button">jetzt
+                <label *ngIf="auth.isLoggedIn() && date.tutors.id!=userId" for="my-modal-{{date.id}}" class="btn btn-primary modal-button">jetzt
                   buchen</label>
                 <p class="text-xs text-red-700" *ngIf="auth.isLoggedOut()">Du musst dich einloggen, um Termine buchen zu
                   können!</p>

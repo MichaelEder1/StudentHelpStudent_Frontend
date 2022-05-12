@@ -26,7 +26,7 @@ export class OfferListComponent implements OnInit {
     window.setTimeout(() => {
       for (let offer of this.tempOffers) {
         for (let date of this.tempDates) {
-          if (offer.id === date.offers.id && date.courses.code == this.courseName) {
+          if (offer.id === date.offers.id && date.courses.code == this.courseName && this.isInFuture(date.date_time)) {
             this.offers.push(offer);
             break;
           }
@@ -34,5 +34,9 @@ export class OfferListComponent implements OnInit {
       }
     }, 500);
     console.log(this.offers);
+  }
+
+  isInFuture(dateTime: Date): Boolean {
+    return (this.ds.getDate(dateTime) >= new Date());
   }
 }
