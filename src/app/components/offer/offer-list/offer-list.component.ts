@@ -26,7 +26,7 @@ export class OfferListComponent implements OnInit {
     window.setTimeout(() => {
       for (let offer of this.tempOffers) {
         for (let date of this.tempDates) {
-          if (offer.id === date.offers.id && date.courses.code == this.courseName && this.isInFuture(date.date_time)) {
+          if (offer.id === date.offers.id && date.courses.code == this.courseName && this.isInFuture(date.date_time) && !date.students) {
             this.offers.push(offer);
             break;
           }

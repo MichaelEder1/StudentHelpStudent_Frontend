@@ -18,7 +18,7 @@
       <p class="text-xl mb-4 font-bold !block">Freie Termine:</p>
       <div class="flex flex-wrap gap-4 justify-center">
         <div *ngFor="let date of dates">
-          <div *ngIf="!date.accepted && isInFuture(date.date_time)" class="card w-96 bg-base-100 shadow-xl">
+          <div *ngIf="!date.accepted && isInFuture(date.date_time) && !date.students " class="card w-96 bg-base-100 shadow-xl">
             <div class="card-body">
               <h2 class="card-title">{{date.offers.title}}</h2>
               <p>freier Termin am: {{getDate(date.date_time)| date:'longDate'}}
