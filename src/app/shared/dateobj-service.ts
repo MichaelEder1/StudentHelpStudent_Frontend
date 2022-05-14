@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {catchError, Observable, retry, throwError} from "rxjs";
 import {DateObj} from "./dateobj";
+import {User} from "./user";
 
 @Injectable()
 export class DateobjService {
@@ -50,5 +51,25 @@ export class DateobjService {
     let second = Number(splittedTime[2]);
 
     return new Date(year, month, day, hour, minute, second);
+  }
+
+  getStudentStuff(id: number): Observable<Array<DateObj>> {
+    return this.http.get<Array<DateObj>>(`${this.api}/profile/studentinfos/${id}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
+
+  getTutorStuff(id: number): Observable<Array<DateObj>> {
+    return this.http.get<Array<DateObj>>(`${this.api}/profile/tutorinfos/${id}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
+
+  update(date: DateObj) {
+    console.log("in update");
+    return this.http.put(`${this.api}/dates/${date.id}`, date)
+      .pipe(retry(3)).pipe(catchError(DateobjService.errorHandler));
+  }
+
+  private static errorHandler(error: Error | any): Observable<any> {
+    return throwError(error);
   }
 }

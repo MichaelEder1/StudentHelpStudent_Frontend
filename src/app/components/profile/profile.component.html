@@ -3,8 +3,7 @@
     <div class="max-w-md">
       <div class="avatar mb-12">
         <div class="w-40 rounded">
-          <img src="{{user.photo}}" alt="{{user.first_name}} {{user.last_name}}"
-               title="{{user.first_name}} {{user.last_name}}"/>
+          <img src="{{user.photo}}" alt="{{user.first_name}} {{user.last_name}}" title="{{user.first_name}} {{user.last_name}}"/>
         </div>
       </div>
       <h1 class="text-5xl font-bold mb-4">Hallo {{user.first_name}}!</h1>
@@ -25,3 +24,58 @@
   </div>
 </div>
 
+<!-- Tutors stuff -->
+
+<h2 class="bg-transparent text-2xl font-bold m-8">Meine Angebote</h2>
+<div class="m-8" *ngIf="roleFlag!='Nachhilfe-Suchender'">
+  <table class="table w-full">
+    <!-- head -->
+    <thead>
+    <tr>
+      <th></th>
+      <th>Kurs</th>
+      <th>Information</th>
+      <th>Link</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- row 1 -->
+    <tr *ngFor="let stuff of tutorStuff; index as i;">
+      <th>{{i+1}}</th>
+      <td>{{stuff.courses.course_name}} | <strong>{{stuff.offers.title}}</strong></td>
+      <td>{{stuff.offers.information}}</td>
+      <td>
+        <a routerLink="/lehrveranstaltungen/{{stuff.programs.program_name}}/{{stuff.courses.code}}/angebote/{{stuff.id}}">zum Angebot</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Students stuff -->
+
+<h2 class="bg-transparent text-2xl font-bold m-8" *ngIf="roleFlag=='Nachhilfe-Suchender'">Gebuchte Termine</h2>
+<h2 class="bg-transparent text-2xl font-bold m-8" *ngIf="roleFlag!='Nachhilfe-Suchender'">Meine Termine</h2>
+<div class="m-8" *ngIf="roleFlag!='Nachhilfe-Suchender'">
+  <table class="table w-full">
+    <!-- head -->
+    <thead>
+    <tr>
+      <th></th>
+      <th>Kurs</th>
+      <th>Information</th>
+      <th>Link</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- row 1 -->
+    <tr *ngFor="let stuff of tutorStuff; index as i;">
+      <th>{{i+1}}</th>
+      <td>{{stuff.courses.course_name}} | <strong>{{stuff.offers.title}}</strong></td>
+      <td>{{stuff.offers.information}}</td>
+      <td>
+        <a routerLink="/lehrveranstaltungen/{{stuff.programs.program_name}}/{{stuff.courses.code}}/angebote/{{stuff.id}}">zum Angebot</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
