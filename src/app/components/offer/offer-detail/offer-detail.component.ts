@@ -8,6 +8,7 @@ import {UserFactory} from "../../../shared/user-factory";
 import {AuthenticationService} from "../../../shared/authentification.service";
 import {OfferService} from "../../../shared/offer-service";
 import {ToastrService} from "ngx-toastr";
+import {DateobjFactory} from "../../../shared/dateobj-factory";
 
 @Component({
   selector: 'shs-offer-detail',
@@ -29,6 +30,7 @@ export class OfferDetailComponent implements OnInit {
   ngOnInit(): void {
     this.ds.getDatesForOffer(this.offerId).subscribe(res => this.dates = res);
     this.us.getUser(this.userId).subscribe(res => this.user = res);
+    window.setTimeout(() => console.log(this.dates[0]), 500);
   }
 
   getDate(date: Date) {
@@ -47,5 +49,15 @@ export class OfferDetailComponent implements OnInit {
 
   isInFuture(dateTime: Date): Boolean {
     return (this.getDate(dateTime) >= new Date());
+  }
+
+  book(date: DateObj) {
+    const newDate: DateObj = DateobjFactory.fromObject(date);
+    this.us.getUser(this.userId).subscribe(res => newDate.students = res);
+    this.ds.update(newDate).subscribe(res => {
+      this.toastr.success("Der Termin für " + newDate.offers.title + " am " + newDate.students.first_name + " wurde gebucht!");
+      this.router.navigate(['/profile']);
+      console.log(newDate);
+    });
   }
 }

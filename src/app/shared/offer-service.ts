@@ -21,7 +21,7 @@ export class OfferService {
   }
 
   getOffersByCourse(course: string): Observable<Array<Offer>> {
-    return this.http.get<Array<Offer>>(`${this.api}/offers/${course}`)
+    return this.http.get<Array<Offer>>(`${this.api}/course/${course}/offers`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 

@@ -42,7 +42,7 @@
                 <h3 class="text-lg font-bold">Termin buchen!</h3>
                 <p class="py-4">Möchtest du den Termin am <br><strong>{{getDate(date.date_time)| date:'longDate'}}
                   um {{getDate(date.date_time)| date:'shortTime'}}</strong><br> wirklich buchen?</p>
-                <button class="btn btn-primary">jetzt verbindlich buchen!</button>
+                <button class="btn btn-primary" (click)="book(date)">jetzt verbindlich buchen!</button>
               </label>
             </label>
 
