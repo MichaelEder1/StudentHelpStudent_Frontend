@@ -17,7 +17,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ProgramService} from "./shared/program-service";
 import {CourseService} from "./shared/course-service";
 import {DatenschutzComponent} from './components/datenschutz/datenschutz.component';
-import {DateService} from "./shared/date-service";
+import {DateobjService} from "./shared/dateobj-service";
 import {ProfileComponent} from './components/profile/profile.component';
 import {OfferListComponent} from './components/offer/offer-list/offer-list.component';
 import {OfferListItemComponent} from './components/offer/offer-list-item/offer-list-item.component';
@@ -64,7 +64,7 @@ registerLocaleData(localeDE);
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
   ],
-  providers: [ProgramService, CourseService, DateService, OfferService, AuthenticationService, UserService,
+  providers: [ProgramService, CourseService, DateobjService, OfferService, AuthenticationService, UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

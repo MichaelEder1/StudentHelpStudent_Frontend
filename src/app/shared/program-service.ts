@@ -24,5 +24,3 @@ export class ProgramService {
     return throwError(error);
   }
 }
-
-

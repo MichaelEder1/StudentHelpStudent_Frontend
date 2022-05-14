@@ -1,13 +1,10 @@
-import {DateObj} from './Date'
-import {Offer, Program, User} from "./offer";
+import {DateObj} from './dateobj';
 import {ProgramFactory} from "./program-factory";
 import {CourseFactory} from "./course-factory";
 import {UserFactory} from "./user-factory";
 import {OffersFactory} from "./offers-factory";
 
-export class DateFactory {
-
-
+export class DateobjFactory {
   static empty() {
     return new DateObj(0, OffersFactory.empty(), ProgramFactory.empty(), CourseFactory.empty(), UserFactory.empty(), UserFactory.empty(), new Date(), false);
   }

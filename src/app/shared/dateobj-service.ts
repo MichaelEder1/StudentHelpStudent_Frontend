@@ -1,11 +1,10 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {catchError, Observable, retry, throwError} from "rxjs";
-import {DateObj} from "./Date";
-import {Offer} from "./offer";
+import {DateObj} from "./dateobj";
 
 @Injectable()
-export class DateService {
+export class DateobjService {
 
   private api = 'http://shs.s1910456008.student.kwmhgb.at/api';
 

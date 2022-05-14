@@ -15,8 +15,8 @@ export class OfferService {
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
-  getSingle(code: string): Observable<Offer> {
-    return this.http.get<Offer>(`${this.api}/offers/${code}`)
+  getSingle(id: number): Observable<Offer> {
+    return this.http.get<Offer>(`${this.api}/offers/${id}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {DateService} from "../../../shared/date-service";
+import {DateobjService} from "../../../shared/dateobj-service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {DateObj} from "../../../shared/Date";
+import {DateObj} from "../../../shared/dateobj";
 import {UserService} from "../../../shared/user-service";
 import {User} from "../../../shared/user";
 import {UserFactory} from "../../../shared/user-factory";
@@ -21,7 +21,7 @@ export class OfferDetailComponent implements OnInit {
   userId: number = 0;
   user: User = UserFactory.empty();
 
-  constructor(private ds: DateService, private route: ActivatedRoute, private router: Router, private us: UserService, private os: OfferService, public auth: AuthenticationService, private toastr: ToastrService,) {
+  constructor(private ds: DateobjService, private route: ActivatedRoute, private router: Router, private us: UserService, private os: OfferService, public auth: AuthenticationService, private toastr: ToastrService,) {
     this.offerId = route.snapshot.params['id'];
     this.userId = Number(sessionStorage.getItem("userId"));
   }

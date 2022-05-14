@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {OfferService} from "../../../shared/offer-service";
 import {Offer} from "../../../shared/offer";
 import {ActivatedRoute} from "@angular/router";
-import {DateService} from "../../../shared/date-service";
-import {DateObj} from 'src/app/shared/Date';
+import {DateobjService} from "../../../shared/dateobj-service";
+import {DateObj} from 'src/app/shared/dateobj';
 
 @Component({
   selector: 'shs-offer-list',
@@ -16,7 +16,7 @@ export class OfferListComponent implements OnInit {
   tempDates: DateObj[] = [];
   courseName: string = "";
 
-  constructor(private os: OfferService, private ds: DateService, private route: ActivatedRoute) {
+  constructor(private os: OfferService, private ds: DateobjService, private route: ActivatedRoute) {
     this.courseName = route.snapshot.params['course'];
   }
 
