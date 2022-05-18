@@ -17,7 +17,6 @@ export class Offer {
     public program: Program,
     public userId: number,
     //public DateObj: DateObj[],
-    //public dates: DateObj[],
   ) {
   }
 }

@@ -24,8 +24,7 @@ export class FormComponent implements OnInit {
   allCourses: Course[] = [];
   courses: Course[] = [];
   programs: Program[] = [];
-  userId: number;
-  user: User = UserFactory.empty();
+  userId: number = 0;
   selectedItem: string = "";
   errors: { [key: string]: string } = {};
 
@@ -42,7 +41,7 @@ export class FormComponent implements OnInit {
               private router: Router) {
     this.offerForm = this.fb.group({});
     this.dates = this.fb.array([]);
-    this.userId = Number(sessionStorage.getItem('userId'))
+    this.userId = Number(sessionStorage.getItem('userId'));
   }
 
   ngOnInit(): void {
@@ -100,8 +99,8 @@ export class FormComponent implements OnInit {
     this.buildDatesArray();
     this.offerForm = this.fb.group({
       id: this.offer.id,
-      user: this.offer.userId,
-      isAvailable: this.offer.isAvailable = false,
+      userId: this.offer.userId = this.userId,
+      isAvailable: this.offer.isAvailable,
       title: [this.offer.title, Validators.required],
       information: [this.offer.information, Validators.required],
       program: [this.offer.program, Validators.required],
