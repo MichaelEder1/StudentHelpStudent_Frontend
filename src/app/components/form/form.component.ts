@@ -4,10 +4,12 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {OfferService} from "../../shared/offer-service";
 import {DateobjFactory} from "../../shared/dateobj-factory";
 import {CourseService} from "../../shared/course-service";
-import {Course, Program} from "../../shared/offer";
+import {Course, Offer, Program, User} from "../../shared/offer";
 import {ProgramService} from "../../shared/program-service";
 import {OfferFormErrorMessages} from "./offer-form-error-messages";
 import {OffersFactory} from "../../shared/offers-factory";
+import {UserFactory} from "../../shared/user-factory";
+import {UserService} from "../../shared/user-service";
 
 @Component({
   selector: 'shs-form',
@@ -22,9 +24,12 @@ export class FormComponent implements OnInit {
   allCourses: Course[] = [];
   courses: Course[] = [];
   programs: Program[] = [];
+  userId: number;
+  user: User = UserFactory.empty();
   selectedItem: string = "";
   errors: { [key: string]: string } = {};
-  isUpdatingCourse = false;
+
+  isUpdatingOffer = false;
   dates: FormArray;
 
 
@@ -32,19 +37,23 @@ export class FormComponent implements OnInit {
               private os: OfferService,
               private cs: CourseService,
               private ps: ProgramService,
+              private us: UserService,
               private route: ActivatedRoute,
               private router: Router) {
     this.offerForm = this.fb.group({});
     this.dates = this.fb.array([]);
+    this.userId = Number(sessionStorage.getItem('userId'))
   }
 
   ngOnInit(): void {
     this.ps.getAll().subscribe(res => this.programs = res);
     this.cs.getAll().subscribe(res => this.allCourses = res);
-    window.setTimeout(() => console.log(this.selectedItem), 500);
+    console.log(this.userId);
+    this.us.getUser(this.userId).subscribe(res => this.user = res);
+    window.setTimeout(() => console.log(this.user), 500);
     const id = this.route.snapshot.params['id'];
     if (id) {
-      this.isUpdatingCourse = true;
+      this.isUpdatingOffer = true;
       this.os.getSingle(id).subscribe(offer => {
         this.offer = offer;
         this.initOffer();
@@ -61,14 +70,42 @@ export class FormComponent implements OnInit {
     this.courses = this.allCourses;
   }
 
+  submitForm() {
+    this.offerForm.value.dates = this.offerForm.value.dates.filter(
+      (date: { date: Date }) => date.date,
+    )
+
+    // console.log(this.appointments);
+    const offer: Offer = OffersFactory.fromObject(this.offerForm.value);
+    //console.log(this.offerForm.value.appointments);
+    offer.user = this.offer.user;
+    if (this.isUpdatingOffer) {
+      console.log("Update form");
+      this.os.update(offer).subscribe(res => {
+        this.router.navigate(["../../../offers", offer.id], {relativeTo: this.route});
+      })
+
+    } else { //JUST A HACK!
+      offer.user.id = sessionStorage['user_id'];
+      this.os.create(offer).subscribe(res => {
+        this.offer = OffersFactory.empty();
+        this.offerForm.reset(offer);
+        console.log(offer);
+        //this.router.navigate(["../"], {relativeTo: this.route});
+      });
+    }
+  }
+
   initOffer() {
     this.buildDatesArray();
     this.offerForm = this.fb.group({
       id: this.offer.id,
+      user: this.offer.user.id,
+      isAvailable: this.offer.isAvailable = false,
       title: [this.offer.title, Validators.required],
       information: [this.offer.information, Validators.required],
-      studiengang: [this.offer.program, Validators.required],
-      lehrveranstaltung: [this.offer.course, Validators.required],
+      program: [this.offer.program, Validators.required],
+      course: [this.offer.course, Validators.required],
       dates: this.dates
     });
     this.offerForm.statusChanges.subscribe(() => {
@@ -77,7 +114,7 @@ export class FormComponent implements OnInit {
   }
 
   buildDatesArray() {
-    if (this.offer.dates) {
+    /*if (this.offer.dates) {
       this.dates = this.fb.array([]);
       for (let date of this.offer.dates) {
         let fg = this.fb.group(
@@ -87,8 +124,7 @@ export class FormComponent implements OnInit {
           }
         );
         this.dates.push(fg);
-      }
-    }
+      }*/
   }
 
   addDate() {

@@ -33,6 +33,17 @@ export class OfferService {
     return this.http.delete<Offer>(`${this.api}/offers/${id}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
+
+  create(offer: Offer) {
+    return this.http.post<Offer>(`${this.api}/offers/`, offer)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
+
+  update(offer: Offer) {
+    return this.http.put<Offer>(`${this.api}/offers/`, offer)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+
+  }
 }
 
 
