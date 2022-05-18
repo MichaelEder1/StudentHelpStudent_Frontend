@@ -9,6 +9,12 @@ import {AuthenticationService} from "../../../shared/authentification.service";
 import {OfferService} from "../../../shared/offer-service";
 import {ToastrService} from "ngx-toastr";
 import {DateobjFactory} from "../../../shared/dateobj-factory";
+import {Course, Offer, Program} from "../../../shared/offer";
+import {OffersFactory} from "../../../shared/offers-factory";
+import {CourseService} from "../../../shared/course-service";
+import {CourseFactory} from "../../../shared/course-factory";
+import {ProgramService} from "../../../shared/program-service";
+import {ProgramFactory} from "../../../shared/program-factory";
 
 @Component({
   selector: 'shs-offer-detail',
@@ -18,19 +24,30 @@ import {DateobjFactory} from "../../../shared/dateobj-factory";
 export class OfferDetailComponent implements OnInit {
 
   dates: DateObj[] = [];
+  offer: Offer = OffersFactory.empty();
+  course: Course = CourseFactory.empty();
+  program: Program = ProgramFactory.empty();
+  tutor: User = UserFactory.empty();
+  student: User = UserFactory.empty();
   offerId: number = 0;
   userId: number = 0;
-  user: User = UserFactory.empty();
 
-  constructor(private ds: DateobjService, private route: ActivatedRoute, private router: Router, private us: UserService, private os: OfferService, public auth: AuthenticationService, private toastr: ToastrService,) {
+  constructor(private ds: DateobjService, private route: ActivatedRoute, private router: Router, private us: UserService, private os: OfferService, private cs: CourseService, private ps: ProgramService, public auth: AuthenticationService, private toastr: ToastrService,) {
     this.offerId = route.snapshot.params['id'];
     this.userId = Number(sessionStorage.getItem("userId"));
   }
 
   ngOnInit(): void {
-    this.ds.getDatesForOffer(this.offerId).subscribe(res => this.dates = res);
-    this.us.getUser(this.userId).subscribe(res => this.user = res);
-    window.setTimeout(() => console.log(this.dates[0]), 500);
+    this.ds.getDatesForOffer(this.offerId).subscribe(res => {
+      this.dates = res;
+      this.cs.getSingle(this.dates[0].courses_id).subscribe(res1 => this.course = res1);
+      this.ps.getSingleById(this.dates[0].programs_id).subscribe(res2 => this.program = res2);
+      this.os.getSingle(this.offerId).subscribe(res3 => this.offer = res3);
+      this.us.getUser(this.dates[0].tutors_id).subscribe(res4 => this.tutor = res4);
+      this.us.getUser(this.userId).subscribe(res5 => this.student = res5);
+    });
+    window.setTimeout(() =>
+      console.log(this.offer.information), 500);
   }
 
   getDate(date: Date) {
@@ -53,9 +70,9 @@ export class OfferDetailComponent implements OnInit {
 
   book(date: DateObj) {
     const newDate: DateObj = DateobjFactory.fromObject(date);
-    this.us.getUser(this.userId).subscribe(res => newDate.students = res);
+    newDate.students_id = this.userId;
     this.ds.update(newDate).subscribe(res => {
-      this.toastr.success("Der Termin für " + newDate.offers.title + " am " + newDate.students.first_name + " wurde gebucht!");
+      this.toastr.success("Der Termin wurde gebucht!");
       this.router.navigate(['/profile']);
       console.log(newDate);
     });

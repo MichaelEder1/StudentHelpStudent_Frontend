@@ -42,10 +42,10 @@
     <!-- row 1 -->
     <tr *ngFor="let stuff of tutorStuff; index as i;">
       <th>{{i+1}}</th>
-      <td>{{stuff.courses.course_name}} | <strong>{{stuff.offers.title}}</strong></td>
-      <td>{{stuff.offers.information}}</td>
+      <td>{{getCourse(stuff.id).course_name}} | <strong>{{getOffer(stuff.id).title}}</strong></td>
+      <td>{{getOffer(stuff.id).information}}</td>
       <td>
-        <a routerLink="/lehrveranstaltungen/{{stuff.programs.program_name}}/{{stuff.courses.code}}/angebote/{{stuff.id}}">zum Angebot</a>
+        <a routerLink="/lehrveranstaltungen/{{getProgram(stuff.id).program_name}}/{{getCourse(stuff.id).code}}/angebote/{{stuff.id}}">zum Angebot</a>
       </td>
     </tr>
     </tbody>
@@ -70,10 +70,10 @@
     <!-- row 1 -->
     <tr *ngFor="let stuff of tutorStuff; index as i;">
       <th>{{i+1}}</th>
-      <td>{{stuff.courses.course_name}} | <strong>{{stuff.offers.title}}</strong></td>
-      <td>{{stuff.offers.information}}</td>
+      <td>{{getCourse(stuff.id).course_name}} | <strong>{{getOffer(stuff.id).title}}</strong></td>
+      <td>{{getOffer(stuff.id).information}}</td>
       <td>
-        <a routerLink="/lehrveranstaltungen/{{stuff.programs.program_name}}/{{stuff.courses.code}}/angebote/{{stuff.id}}">zum Angebot</a>
+        <a routerLink="/lehrveranstaltungen/{{getProgram(stuff.id).program_name}}/{{getCourse(stuff.id).code}}/angebote/{{stuff.id}}">zum Angebot</a>
       </td>
     </tr>
     </tbody>

@@ -6,17 +6,17 @@ import {OffersFactory} from "./offers-factory";
 
 export class DateobjFactory {
   static empty() {
-    return new DateObj(0, OffersFactory.empty(), ProgramFactory.empty(), CourseFactory.empty(), UserFactory.empty(), UserFactory.empty(), new Date(), false);
+    return new DateObj(0, 0, 0, 0,0,0, new Date(), false);
   }
 
   static fromObject(rawDate: any): DateObj {
     return new DateObj(
       rawDate.id,
-      rawDate.offers,
-      rawDate.programs,
-      rawDate.courses,
-      rawDate.tutors,
-      rawDate.students,
+      rawDate.offers_id,
+      rawDate.programs_id,
+      rawDate.courses_id,
+      rawDate.tutors_id,
+      rawDate.students_id,
       rawDate.date_time,
       rawDate.accepted
     );

@@ -20,6 +20,11 @@ export class ProgramService {
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
+  getSingleById(id: number): Observable<Program> {
+    return this.http.get<Program>(`${this.api}/programs/id/${id}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
+
   private errorHandler(error: Error | any): Observable<any> {
     return throwError(error);
   }

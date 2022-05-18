@@ -1,10 +1,11 @@
 <div class="min-h-screen">
-  <div class="details-header relative mb-12" *ngIf="dates[0] && dates[0].courses && dates[0].programs && dates[0].offers">
-    <img class="w-full object-cover course-image" src="{{dates[0].courses.image}}" alt="{{dates[0].offers.title}}">
+  <div class="details-header relative mb-12"
+       *ngIf="course && program && offer">
+    <img class="w-full object-cover course-image" src="{{course.image}}" alt="{{offer.title}}">
     <div class="header-text absolute text-center left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-      <h1 class="mb-5 text-5xl font-bold">{{dates[0].offers.title}}</h1>
-      <h2 class="mb-5 text-xl font-bold">{{dates[0].programs.program_name}} | {{dates[0].courses.course_name}}
-        | {{dates[0].courses.semester}}.
+      <h1 class="mb-5 text-5xl font-bold">{{offer.title}}</h1>
+      <h2 class="mb-5 text-xl font-bold">{{program.program_name}} | {{course.course_name}}
+        | {{course.semester}}.
         Semester</h2>
     </div>
   </div>
@@ -12,24 +13,26 @@
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center mx-4 content">
     <div>
       <p class="text-xl mb-4 font-bold">Informationen zum Angebot:</p>
-      <p>{{dates[0].offers.information}}</p>
+      <p>{{offer.information}}</p>
     </div>
     <div class="dates">
       <p class="text-xl mb-4 font-bold !block">Freie Termine:</p>
       <div class="flex flex-wrap gap-4 justify-center">
         <div *ngFor="let date of dates">
-          <div *ngIf="!date.accepted && isInFuture(date.date_time) && !date.students " class="card w-96 bg-base-100 shadow-xl">
+          <div *ngIf="!date.accepted && isInFuture(date.date_time) && !date.students_id "
+               class="card w-96 bg-base-100 shadow-xl">
             <div class="card-body">
-              <h2 class="card-title">{{date.offers.title}}</h2>
+              <h2 class="card-title">{{offer.title}}</h2>
               <p>freier Termin am: {{getDate(date.date_time)| date:'longDate'}}
                 um {{getDate(date.date_time)| date:'shortTime'}}</p>
               <div class="card-actions justify-end">
-                <label *ngIf="auth.isLoggedIn() &&date.tutors.id==userId" for="my-modal-delete-{{date.id}}"
+                <label *ngIf="auth.isLoggedIn() && date.tutors_id==userId" for="my-modal-delete-{{date.id}}"
                        class="btn btn-error modal-button">
                   Termin löschen
                 </label>
                 <!-- The button to open modal -->
-                <label *ngIf="auth.isLoggedIn() && date.tutors.id!=userId" for="my-modal-{{date.id}}" class="btn btn-primary modal-button">jetzt
+                <label *ngIf="auth.isLoggedIn() && date.tutors_id!=userId" for="my-modal-{{date.id}}"
+                       class="btn btn-primary modal-button">jetzt
                   buchen</label>
                 <p class="text-xs text-red-700" *ngIf="auth.isLoggedOut()">Du musst dich einloggen, um Termine buchen zu
                   können!</p>
@@ -62,20 +65,20 @@
       <button class="btn btn-info mt-8 text-white">Kein passender Termin dabei?</button>
     </div>
     <div class="border border-1 border-red-50 rounded-md tutor p-4">
-      <img class="rounded-full m-auto object-cover mb-4" src="{{dates[0].tutors.photo}}"
-           alt="{{dates[0].tutors.first_name}} {{dates[0].tutors.last_name}}">
-      <p class="font-bold text-xl mb-3">{{dates[0].tutors.first_name}} {{dates[0].tutors.last_name}}
-        , {{dates[0].tutors.age}} Jahre</p>
-      <p class="font-bold text-xl mb-6">Informationen über {{dates[0].tutors.first_name}}:</p>
-      <p>Studium: {{dates[0].tutors.education}} ({{dates[0].tutors.degree}})</p>
-      <p>aktuelles Semester: {{dates[0].tutors.semester}}. Semester</p>
+      <img class="rounded-full m-auto object-cover mb-4" src="{{tutor.photo}}"
+           alt="{{tutor.first_name}} {{tutor.last_name}}">
+      <p class="font-bold text-xl mb-3">{{tutor.first_name}} {{tutor.last_name}}
+        , {{tutor.age}} Jahre</p>
+      <p class="font-bold text-xl mb-6">Informationen über {{tutor.first_name}}:</p>
+      <p>Studium: {{tutor.education}} ({{tutor.degree}})</p>
+      <p>aktuelles Semester: {{tutor.semester}}. Semester</p>
       <br>
-      <p>E-Mail: <a [href]="'mailto:' + dates[0].tutors.email">{{dates[0].tutors.email}}</a></p>
-      <p>Telefon: <a [href]="'tel:' + dates[0].tutors.phone_number">{{dates[0].tutors.phone_number}}</a></p>
+      <p>E-Mail: <a [href]="'mailto:' + tutor.email">{{tutor.email}}</a></p>
+      <p>Telefon: <a [href]="'tel:' + tutor.phone_number">{{tutor.phone_number}}</a></p>
     </div>
   </div>
   <div class="buttons flex gap-8 justify-center mb-8">
-    <label *ngIf="auth.isLoggedIn && dates[0].tutors.id==userId" for="my-modal-delete"
+    <label *ngIf="auth.isLoggedIn && tutor.id==userId" for="my-modal-delete"
            class="btn btn-error modal-button">
       <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
            xmlns="http://www.w3.org/2000/svg">
@@ -84,7 +87,7 @@
       </svg>
       Angebot löschen
     </label>
-    <button *ngIf="auth.isLoggedIn && dates[0].tutors.id==userId" class="btn btn-primary">
+    <button *ngIf="auth.isLoggedIn && tutor.id==userId" class="btn btn-primary">
       <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
            xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -99,7 +102,7 @@
       <label class="modal-box relative text-center" for="my-modal-delete">
         <h3 class="text-lg font-bold">Angebot löschen!</h3>
         <p class="py-4">Möchtest du das Angebot
-          <i><strong>{{dates[0].offers.title}}</strong></i>
+          <i><strong>{{offer.title}}</strong></i>
           wirklich löschen?
         </p>
         <button class="btn btn-error" (click)="removeOffer()">Angebot löschen</button>

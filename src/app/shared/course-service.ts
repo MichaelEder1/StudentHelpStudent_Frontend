@@ -16,7 +16,7 @@ export class CourseService {
   }
 
   getSingle(id: number): Observable<Course> {
-    return this.http.get<Course>(`${this.api}/courses/${id}`)
+    return this.http.get<Course>(`${this.api}/courses/id/${id}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
