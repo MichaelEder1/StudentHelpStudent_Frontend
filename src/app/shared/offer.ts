@@ -15,7 +15,7 @@ export class Offer {
     public isAvailable: boolean,
     public course: Course,
     public program: Program,
-    public user: User,
+    public userId: number,
     //public DateObj: DateObj[],
     //public dates: DateObj[],
   ) {

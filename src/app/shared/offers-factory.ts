@@ -6,7 +6,7 @@ import {UserFactory} from "./user-factory";
 export class OffersFactory {
 
   static empty() {
-    return new Offer(0, "", "", true, CourseFactory.empty(), ProgramFactory.empty(), UserFactory.empty());
+    return new Offer(0, "", "", true, CourseFactory.empty(), ProgramFactory.empty(), 0);
     //return new Offer(0, "", "", true, CourseFactory.empty(), ProgramFactory.empty(), [],[]);
   }
 
@@ -18,7 +18,7 @@ export class OffersFactory {
       rawOffer.isAvailable,
       rawOffer.course,
       rawOffer.program,
-      rawOffer.user
+      rawOffer.userId
     );
   }
 }

@@ -37,7 +37,7 @@ export class FormComponent implements OnInit {
               private os: OfferService,
               private cs: CourseService,
               private ps: ProgramService,
-              private us: UserService,
+              //private us: UserService,
               private route: ActivatedRoute,
               private router: Router) {
     this.offerForm = this.fb.group({});
@@ -49,8 +49,8 @@ export class FormComponent implements OnInit {
     this.ps.getAll().subscribe(res => this.programs = res);
     this.cs.getAll().subscribe(res => this.allCourses = res);
     console.log(this.userId);
-    this.us.getUser(this.userId).subscribe(res => this.user = res);
-    window.setTimeout(() => console.log(this.user), 500);
+    //this.us.getUser(this.userId).subscribe(res => this.user = res);
+    //window.setTimeout(() => console.log(this.user), 500);
     const id = this.route.snapshot.params['id'];
     if (id) {
       this.isUpdatingOffer = true;
@@ -78,7 +78,7 @@ export class FormComponent implements OnInit {
     // console.log(this.appointments);
     const offer: Offer = OffersFactory.fromObject(this.offerForm.value);
     //console.log(this.offerForm.value.appointments);
-    offer.user = this.offer.user;
+    offer.userId = this.offer.userId;
     if (this.isUpdatingOffer) {
       console.log("Update form");
       this.os.update(offer).subscribe(res => {
@@ -86,7 +86,7 @@ export class FormComponent implements OnInit {
       })
 
     } else { //JUST A HACK!
-      offer.user.id = sessionStorage['user_id'];
+      offer.userId = sessionStorage['user_id'];
       this.os.create(offer).subscribe(res => {
         this.offer = OffersFactory.empty();
         this.offerForm.reset(offer);
@@ -100,7 +100,7 @@ export class FormComponent implements OnInit {
     this.buildDatesArray();
     this.offerForm = this.fb.group({
       id: this.offer.id,
-      user: this.offer.user.id,
+      user: this.offer.userId,
       isAvailable: this.offer.isAvailable = false,
       title: [this.offer.title, Validators.required],
       information: [this.offer.information, Validators.required],
