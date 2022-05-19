@@ -15,6 +15,7 @@ import {CourseService} from "../../../shared/course-service";
 import {CourseFactory} from "../../../shared/course-factory";
 import {ProgramService} from "../../../shared/program-service";
 import {ProgramFactory} from "../../../shared/program-factory";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'shs-offer-detail',
@@ -72,7 +73,7 @@ export class OfferDetailComponent implements OnInit {
     const newDate: DateObj = DateobjFactory.fromObject(date);
     newDate.students_id = this.userId;
     this.ds.update(newDate).subscribe(res => {
-      this.toastr.success("Der Termin wurde gebucht!");
+      this.toastr.success("Der Termin " + this.offer.title +  " am" + this.getDate(date.date_time).toLocaleDateString('de-at') + " um " + this.getDate(date.date_time) +  "wurde gebucht!");
       this.router.navigate(['/profile']);
       console.log(newDate);
     });

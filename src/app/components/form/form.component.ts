@@ -85,9 +85,9 @@ export class FormComponent implements OnInit {
       })
 
     } else { //JUST A HACK!
-      offer.userId = sessionStorage['user_id'];
+      offer.userId = Number(sessionStorage['userId']);
       this.os.create(offer).subscribe(res => {
-        this.offer = OffersFactory.empty();
+        //this.offer = OffersFactory.empty();
         this.offerForm.reset(offer);
         console.log(offer);
         //this.router.navigate(["../"], {relativeTo: this.route});
@@ -99,7 +99,7 @@ export class FormComponent implements OnInit {
     this.buildDatesArray();
     this.offerForm = this.fb.group({
       id: this.offer.id,
-      userId: this.offer.userId = this.userId,
+      userId: this.offer.userId,
       isAvailable: this.offer.isAvailable,
       title: [this.offer.title, Validators.required],
       information: [this.offer.information, Validators.required],

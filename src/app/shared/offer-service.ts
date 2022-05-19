@@ -35,12 +35,12 @@ export class OfferService {
   }
 
   create(offer: Offer) {
-    return this.http.post<Offer>(`${this.api}/offers/`, offer)
+    return this.http.post<Offer>(`${this.api}/offers`, offer)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
   update(offer: Offer) {
-    return this.http.put<Offer>(`${this.api}/offers/`, offer)
+    return this.http.put<Offer>(`${this.api}/offers`, offer)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
 
   }
