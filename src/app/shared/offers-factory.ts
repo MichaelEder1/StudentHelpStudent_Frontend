@@ -1,12 +1,12 @@
 import {Course, Offer, Program, User} from "./offer";
 import {ProgramFactory} from "./program-factory";
 import {CourseFactory} from "./course-factory";
-import {UserFactory} from "./user-factory";
+import {DateobjFactory} from "./dateobj-factory";
 
 export class OffersFactory {
 
   static empty() {
-    return new Offer(0, "", "", true, CourseFactory.empty(), ProgramFactory.empty(), 0);
+    return new Offer(0, "", "", true, CourseFactory.empty(), ProgramFactory.empty(), 0, [DateobjFactory.empty()]);
     //return new Offer(0, "", "", true, CourseFactory.empty(), ProgramFactory.empty(), [],[]);
   }
 
@@ -18,7 +18,8 @@ export class OffersFactory {
       rawOffer.isAvailable,
       rawOffer.course,
       rawOffer.program,
-      rawOffer.userId
+      rawOffer.userId,
+      rawOffer.dateObj
     );
   }
 }

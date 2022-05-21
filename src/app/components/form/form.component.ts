@@ -10,6 +10,8 @@ import {OfferFormErrorMessages} from "./offer-form-error-messages";
 import {OffersFactory} from "../../shared/offers-factory";
 import {UserFactory} from "../../shared/user-factory";
 import {UserService} from "../../shared/user-service";
+import {ToastrService} from "ngx-toastr";
+import {DateObj} from "../../shared/dateobj";
 
 @Component({
   selector: 'shs-form',
@@ -29,7 +31,7 @@ export class FormComponent implements OnInit {
   errors: { [key: string]: string } = {};
 
   isUpdatingOffer = false;
-  dates: FormArray;
+  dateObjs: FormArray;
 
 
   constructor(private fb: FormBuilder,
@@ -38,22 +40,21 @@ export class FormComponent implements OnInit {
               private ps: ProgramService,
               //private us: UserService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private toastr: ToastrService) {
     this.offerForm = this.fb.group({});
-    this.dates = this.fb.array([]);
+    this.dateObjs = this.fb.array([]);
     this.userId = Number(sessionStorage.getItem('userId'));
   }
 
   ngOnInit(): void {
     this.ps.getAll().subscribe(res => this.programs = res);
     this.cs.getAll().subscribe(res => this.allCourses = res);
-    console.log(this.userId);
-    //this.us.getUser(this.userId).subscribe(res => this.user = res);
-    //window.setTimeout(() => console.log(this.user), 500);
     const id = this.route.snapshot.params['id'];
-    if (id) {
+    if (id != undefined) {
+      console.log("is updating!");
       this.isUpdatingOffer = true;
-      this.os.getSingle(id).subscribe(offer => {
+      this.os.getSingle(Number(id)).subscribe(offer => {
         this.offer = offer;
         this.initOffer();
       });
@@ -70,27 +71,23 @@ export class FormComponent implements OnInit {
   }
 
   submitForm() {
-    this.offerForm.value.dates = this.offerForm.value.dates.filter(
-      (date: { date: Date }) => date.date,
-    )
-
-    // console.log(this.appointments);
+    //this.offerForm.value.dates = this.offerForm.value.dates.filter(
+      //(date: { date: Date }) => date.date)
     const offer: Offer = OffersFactory.fromObject(this.offerForm.value);
-    //console.log(this.offerForm.value.appointments);
     offer.userId = this.offer.userId;
     if (this.isUpdatingOffer) {
-      console.log("Update form");
       this.os.update(offer).subscribe(res => {
         this.router.navigate(["../../../offers", offer.id], {relativeTo: this.route});
       })
 
-    } else { //JUST A HACK!
+    } else {
       offer.userId = Number(sessionStorage['userId']);
       this.os.create(offer).subscribe(res => {
-        //this.offer = OffersFactory.empty();
-        this.offerForm.reset(offer);
         console.log(offer);
-        //this.router.navigate(["../"], {relativeTo: this.route});
+        this.offer = OffersFactory.empty();
+        this.toastr.success("Das Angebot " + this.offer.title + "wurde gespeichert!");
+        this.offerForm.reset(offer);
+        this.router.navigate(["../"], {relativeTo: this.route});
       });
     }
   }
@@ -99,13 +96,13 @@ export class FormComponent implements OnInit {
     this.buildDatesArray();
     this.offerForm = this.fb.group({
       id: this.offer.id,
-      userId: this.offer.userId,
+      userId: Number(this.offer.userId),
       isAvailable: this.offer.isAvailable,
       title: [this.offer.title, Validators.required],
       information: [this.offer.information, Validators.required],
-      program: [this.offer.program, Validators.required],
-      course: [this.offer.course, Validators.required],
-      dates: this.dates
+      program: Number([this.offer.program, Validators.required]),
+      course: Number([this.offer.course, Validators.required]),
+      dates: this.offer.dateObjs
     });
     this.offerForm.statusChanges.subscribe(() => {
       this.updateErrorMessages();
@@ -113,21 +110,22 @@ export class FormComponent implements OnInit {
   }
 
   buildDatesArray() {
-    /*if (this.offer.dates) {
-      this.dates = this.fb.array([]);
-      for (let date of this.offer.dates) {
+    if (this.offer.dateObjs) {
+      this.dateObjs = this.fb.array([]);
+      for (let dateObj of this.offer.dateObjs) {
         let fg = this.fb.group(
           {
-            id: new FormControl(date.id),
-            date_time: new FormControl(date.date_time, [Validators.required]),
+            id: new FormControl(dateObj.id),
+            date_time: new FormControl(dateObj.date_time, [Validators.required]),
           }
         );
-        this.dates.push(fg);
-      }*/
+        this.dateObjs.push(fg);
+      }
+    }
   }
 
   addDate() {
-    this.dates.push(this.fb.group(DateobjFactory.empty()));
+    this.dateObjs.push(this.fb.group(DateobjFactory.empty()));
   }
 
   updateErrorMessages() {

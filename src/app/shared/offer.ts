@@ -16,7 +16,7 @@ export class Offer {
     public course: Course,
     public program: Program,
     public userId: number,
-    //public DateObj: DateObj[],
+    public dateObjs: DateObj[],
   ) {
   }
 }

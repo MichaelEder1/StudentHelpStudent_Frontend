@@ -15,7 +15,6 @@ import {CourseService} from "../../../shared/course-service";
 import {CourseFactory} from "../../../shared/course-factory";
 import {ProgramService} from "../../../shared/program-service";
 import {ProgramFactory} from "../../../shared/program-factory";
-import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'shs-offer-detail',
@@ -41,14 +40,14 @@ export class OfferDetailComponent implements OnInit {
   ngOnInit(): void {
     this.ds.getDatesForOffer(this.offerId).subscribe(res => {
       this.dates = res;
-      this.cs.getSingle(this.dates[0].courses_id).subscribe(res1 => this.course = res1);
-      this.ps.getSingleById(this.dates[0].programs_id).subscribe(res2 => this.program = res2);
+      this.cs.getSingle(this.dates[0].course_id).subscribe(res1 => this.course = res1);
+      this.ps.getSingleById(this.dates[0].program_id).subscribe(res2 => this.program = res2);
       this.os.getSingle(this.offerId).subscribe(res3 => this.offer = res3);
-      this.us.getUser(this.dates[0].tutors_id).subscribe(res4 => this.tutor = res4);
+      this.us.getUser(this.dates[0].tutor_id).subscribe(res4 => this.tutor = res4);
       this.us.getUser(this.userId).subscribe(res5 => this.student = res5);
     });
     window.setTimeout(() =>
-      console.log(this.offer.information), 500);
+      console.log(this.offer.id), 500);
   }
 
   getDate(date: Date) {
@@ -71,7 +70,7 @@ export class OfferDetailComponent implements OnInit {
 
   book(date: DateObj) {
     const newDate: DateObj = DateobjFactory.fromObject(date);
-    newDate.students_id = this.userId;
+    newDate.student_id = this.userId;
     this.ds.update(newDate).subscribe(res => {
       this.toastr.success("Der Termin " + this.offer.title +  " am" + this.getDate(date.date_time).toLocaleDateString('de-at') + " um " + this.getDate(date.date_time) +  "wurde gebucht!");
       this.router.navigate(['/profile']);

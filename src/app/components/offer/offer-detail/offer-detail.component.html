@@ -19,19 +19,19 @@
       <p class="text-xl mb-4 font-bold !block">Freie Termine:</p>
       <div class="flex flex-wrap gap-4 justify-center">
         <div *ngFor="let date of dates">
-          <div *ngIf="!date.accepted && isInFuture(date.date_time) && !date.students_id "
+          <div *ngIf="!date.accepted && isInFuture(date.date_time) && !date.student_id "
                class="card w-96 bg-base-100 shadow-xl">
             <div class="card-body">
               <h2 class="card-title">{{offer.title}}</h2>
               <p>freier Termin am: {{getDate(date.date_time)| date:'longDate'}}
                 um {{getDate(date.date_time)| date:'shortTime'}}</p>
               <div class="card-actions justify-end">
-                <label *ngIf="auth.isLoggedIn() && date.tutors_id==userId" for="my-modal-delete-{{date.id}}"
+                <label *ngIf="auth.isLoggedIn() && date.tutor_id==userId" for="my-modal-delete-{{date.id}}"
                        class="btn btn-error modal-button">
                   Termin löschen
                 </label>
                 <!-- The button to open modal -->
-                <label *ngIf="auth.isLoggedIn() && date.tutors_id!=userId" for="my-modal-{{date.id}}"
+                <label *ngIf="auth.isLoggedIn() && date.tutor_id!=userId" for="my-modal-{{date.id}}"
                        class="btn btn-primary modal-button">jetzt
                   buchen</label>
                 <p class="text-xs text-red-700" *ngIf="auth.isLoggedOut()">Du musst dich einloggen, um Termine buchen zu
@@ -87,14 +87,14 @@
       </svg>
       Angebot löschen
     </label>
-    <button *ngIf="auth.isLoggedIn && tutor.id==userId" class="btn btn-primary">
+    <a *ngIf="auth.isLoggedIn && tutor.id==userId" [routerLink]="['../../../../../neu', offerId]" class="btn btn-primary">
       <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
            xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
       </svg>
       Angebot bearbeiten
-    </button>
+    </a>
 
     <!-- Put this part before </body> tag -->
     <input type="checkbox" id="my-modal-delete" class="modal-toggle"/>

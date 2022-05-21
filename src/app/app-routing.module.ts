@@ -16,6 +16,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'neu', component: FormComponent},
+  {path: 'neu/:id', component: FormComponent},
   {path: 'lehrveranstaltungen', component: ProgramListComponent},
   {path: 'lehrveranstaltungen/:course', component: CourseListComponent},
   {path: 'lehrveranstaltungen/:program/:course/angebote', component: OfferListComponent},

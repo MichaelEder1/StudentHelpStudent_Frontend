@@ -21,19 +21,22 @@ export class OfferListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.os.getOffersByCourse(this.courseName).subscribe(res => this.tempOffers = res);
-    this.ds.getAll().subscribe(res => this.tempDates = res);
+    this.ds.getAll().subscribe(res => {
+        this.tempDates = res;
+        this.os.getOffersByCourse(this.courseName).subscribe(res => this.tempOffers = res);
+      }
+    );
+    console.log(this.tempDates);
     window.setTimeout(() => {
       for (let offer of this.tempOffers) {
         for (let date of this.tempDates) {
-          if (offer.id === date.offers_id && this.isInFuture(date.date_time) && !date.students_id) {
+          if (offer.id === date.offer_id && this.isInFuture(date.date_time) && !date.student_id) {
             this.offers.push(offer);
             break;
           }
         }
       }
     }, 500);
-    console.log(this.offers);
   }
 
   isInFuture(dateTime: Date): Boolean {
