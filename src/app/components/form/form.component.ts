@@ -93,8 +93,8 @@ export class FormComponent implements OnInit {
 
     } else {
       offer.userId = Number(sessionStorage['userId']);
+      console.log(offer);
       this.os.create(offer).subscribe(res => {
-        console.log(offer);
         this.offer = OffersFactory.empty();
         this.toastr.success("Das Angebot " + this.offer.title + "wurde gespeichert!");
         this.offerForm.reset(offer);
