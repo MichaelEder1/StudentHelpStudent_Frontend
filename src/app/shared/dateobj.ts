@@ -1,5 +1,3 @@
-import {Course, Offer, Program, User} from './offer';
-
 export class DateObj {
   constructor(
     public id: number,

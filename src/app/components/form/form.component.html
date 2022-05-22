@@ -35,7 +35,7 @@
           <select formControlName="program" ngModel="selectedItem" id="studiengang"
                   class="input input-bordered w-full max-w-xs">
             <option disabled selected value="-1">Bitte wählen ...</option>
-            <option *ngFor="let program of programs" [ngValue]="program.id">{{program.program_name}}</option>
+            <option *ngFor="let program of programs" [value]="program.id">{{program.program_name}}</option>
           </select>
           <label class="label">
             <span class="label-text-alt" *ngIf="errors['studiengang']">{{errors['studiengang']}}</span>
@@ -48,16 +48,16 @@
           </label>
           <select formControlName="course" class="input input-bordered w-full max-w-xs">
             <option disabled selected value="-1">Bitte wählen ...</option>
-            <option *ngFor="let course of allCourses" [ngValue]="course.id">{{course.course_name}}</option>
+            <option *ngFor="let course of allCourses" [value]="course.id">{{course.course_name}}</option>
           </select>
           <label class="label">
             <span class="label-text-alt" *ngIf="errors['lehrveranstaltung']">{{errors['lehrveranstaltung']}}</span>
           </label>
         </div>
 
-        <!--div class="form-control w-full max-w-xs">
+        <div class="form-control w-full max-w-xs">
           <label class="label">Termine</label>
-          <div formArrayName="dates">
+          <div formArrayName="dateObjs">
             <div class="fields mb-4" *ngFor="let control of dateObjs.controls; index as i; last as l"
                  [formGroupName]="i">
               <input type="hidden" formControlName="id">
@@ -75,7 +75,7 @@
             </div>
           </div>
           <div *ngIf="errors['termin']" class="text-sm text-red-700">{{ errors['termin'] }}</div>
-        </div-->
+        </div>
         <button type="submit" [disabled]="offerForm.invalid"
                 class="btn btn-primary btn-xs mt-6 sm:btn-sm md:btn-md lg:btn-lg">
           Speichern

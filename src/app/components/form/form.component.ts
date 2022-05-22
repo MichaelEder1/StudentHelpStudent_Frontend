@@ -4,13 +4,15 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {OfferService} from "../../shared/offer-service";
 import {DateobjFactory} from "../../shared/dateobj-factory";
 import {CourseService} from "../../shared/course-service";
-import {Course, Offer, Program, User} from "../../shared/offer";
+import {Offer} from "../../shared/offer";
 import {ProgramService} from "../../shared/program-service";
 import {OfferFormErrorMessages} from "./offer-form-error-messages";
 import {OffersFactory} from "../../shared/offers-factory";
-import {UserFactory} from "../../shared/user-factory";
-import {UserService} from "../../shared/user-service";
 import {ToastrService} from "ngx-toastr";
+import {DateobjService} from "../../shared/dateobj-service";
+import {Course} from "../../shared/course";
+import {Program} from "../../shared/program";
+import {formatDate} from "@angular/common";
 import {DateObj} from "../../shared/dateobj";
 
 @Component({
@@ -38,7 +40,7 @@ export class FormComponent implements OnInit {
               private os: OfferService,
               private cs: CourseService,
               private ps: ProgramService,
-              //private us: UserService,
+              private ds: DateobjService,
               private route: ActivatedRoute,
               private router: Router,
               private toastr: ToastrService) {
@@ -71,13 +73,22 @@ export class FormComponent implements OnInit {
   }
 
   submitForm() {
-    //this.offerForm.value.dates = this.offerForm.value.dates.filter(
-      //(date: { date: Date }) => date.date)
-    const offer: Offer = OffersFactory.fromObject(this.offerForm.value);
+    let offer: Offer = OffersFactory.fromObject(this.offerForm.value);
     offer.userId = this.offer.userId;
+    console.log(offer.dates);
+    for(let dateObj of offer.dates){
+      dateObj.accepted = false;
+      dateObj.course_id = this.offer.course_id;
+      dateObj.offer_id = this.offer.id;
+      dateObj.program_id = this.offer.program_id;
+      dateObj.student_id = 0;
+      dateObj.tutor_id = this.userId;
+      console.log(dateObj);
+    }
+    console.log(offer);
     if (this.isUpdatingOffer) {
       this.os.update(offer).subscribe(res => {
-        this.router.navigate(["../../../offers", offer.id], {relativeTo: this.route});
+        this.router.navigate(["../"], {relativeTo: this.route});
       })
 
     } else {
@@ -93,6 +104,7 @@ export class FormComponent implements OnInit {
   }
 
   initOffer() {
+    console.log(this.offer);
     this.buildDatesArray();
     this.offerForm = this.fb.group({
       id: this.offer.id,
@@ -100,9 +112,9 @@ export class FormComponent implements OnInit {
       isAvailable: this.offer.isAvailable,
       title: [this.offer.title, Validators.required],
       information: [this.offer.information, Validators.required],
-      program: Number([this.offer.program, Validators.required]),
-      course: Number([this.offer.course, Validators.required]),
-      dates: this.offer.dateObjs
+      program:[this.offer.program_id, Validators.required],
+      course: [this.offer.course_id, Validators.required],
+      dateObjs: this.dateObjs
     });
     this.offerForm.statusChanges.subscribe(() => {
       this.updateErrorMessages();
@@ -110,19 +122,21 @@ export class FormComponent implements OnInit {
   }
 
   buildDatesArray() {
-    if (this.offer.dateObjs) {
+    if (this.offer.dates) {
       this.dateObjs = this.fb.array([]);
-      for (let dateObj of this.offer.dateObjs) {
+      for (let dateObj of this.offer.dates) {
         let fg = this.fb.group(
           {
             id: new FormControl(dateObj.id),
-            date_time: new FormControl(dateObj.date_time, [Validators.required]),
+            date_time: new FormControl(this.formatDate(dateObj.date_time), [Validators.required]),
           }
         );
         this.dateObjs.push(fg);
       }
+      console.log(this.dateObjs);
     }
   }
+
 
   addDate() {
     this.dateObjs.push(this.fb.group(DateobjFactory.empty()));
@@ -141,5 +155,13 @@ export class FormComponent implements OnInit {
         this.errors[message.forControl] = message.text;
       }
     }
+  }
+
+  formatDate(date: any) {
+    console.log(date);
+    let newDate = date.toString();
+    let res = newDate.replace(" ", "T");
+    console.log("new:" + date);
+    return res;
   }
 }

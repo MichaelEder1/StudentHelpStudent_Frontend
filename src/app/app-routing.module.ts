@@ -21,6 +21,7 @@ const routes: Routes = [
   {path: 'lehrveranstaltungen/:course', component: CourseListComponent},
   {path: 'lehrveranstaltungen/:program/:course/angebote', component: OfferListComponent},
   {path: 'lehrveranstaltungen/:program/:course/angebote/:id', component: OfferDetailComponent},
+  {path: 'lehrveranstaltungen/:program/:course/angebote/:id/admin', component: FormComponent},
   {path: 'impressum', component: ImpressumComponent},
   {path: 'datenschutz', component: DatenschutzComponent},
   {path: 'profile', component: ProfileComponent},

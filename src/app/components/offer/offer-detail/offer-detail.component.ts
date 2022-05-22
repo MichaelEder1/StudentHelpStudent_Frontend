@@ -9,12 +9,14 @@ import {AuthenticationService} from "../../../shared/authentification.service";
 import {OfferService} from "../../../shared/offer-service";
 import {ToastrService} from "ngx-toastr";
 import {DateobjFactory} from "../../../shared/dateobj-factory";
-import {Course, Offer, Program} from "../../../shared/offer";
+import {Offer} from "../../../shared/offer";
 import {OffersFactory} from "../../../shared/offers-factory";
 import {CourseService} from "../../../shared/course-service";
 import {CourseFactory} from "../../../shared/course-factory";
 import {ProgramService} from "../../../shared/program-service";
 import {ProgramFactory} from "../../../shared/program-factory";
+import {Course} from "../../../shared/course";
+import {Program} from "../../../shared/program";
 
 @Component({
   selector: 'shs-offer-detail',

@@ -1,10 +1,6 @@
-import {Program} from "./program";
-import {Course} from "./course";
 import {User} from "./user";
 import {DateObj} from "./dateobj";
 
-export {Course} from "./course";
-export {Program} from "./program";
 export {User} from "./user";
 
 export class Offer {
@@ -13,10 +9,10 @@ export class Offer {
     public title: string,
     public information: string,
     public isAvailable: boolean,
-    public course: Course,
-    public program: Program,
+    public course_id: number,
+    public program_id: number,
     public userId: number,
-    public dateObjs: DateObj[],
+    public dates: DateObj[],
   ) {
   }
 }
