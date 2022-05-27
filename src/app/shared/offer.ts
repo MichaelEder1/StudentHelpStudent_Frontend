@@ -1,6 +1,5 @@
 import {User} from "./user";
 import {DateObj} from "./dateobj";
-
 export {User} from "./user";
 
 export class Offer {

@@ -12,8 +12,6 @@ import {ToastrService} from "ngx-toastr";
 import {DateobjService} from "../../shared/dateobj-service";
 import {Course} from "../../shared/course";
 import {Program} from "../../shared/program";
-import {formatDate} from "@angular/common";
-import {DateObj} from "../../shared/dateobj";
 
 @Component({
   selector: 'shs-form',
@@ -24,7 +22,7 @@ export class FormComponent implements OnInit {
 
 
   offerForm: FormGroup;
-  offer = OffersFactory.empty();
+  offer: Offer = OffersFactory.empty();
   allCourses: Course[] = [];
   courses: Course[] = [];
   programs: Program[] = [];
@@ -53,6 +51,7 @@ export class FormComponent implements OnInit {
     this.ps.getAll().subscribe(res => this.programs = res);
     this.cs.getAll().subscribe(res => this.allCourses = res);
     const id = this.route.snapshot.params['id'];
+    console.log("ID: " + id);
     if (id != undefined) {
       console.log("is updating!");
       this.isUpdatingOffer = true;
@@ -76,7 +75,7 @@ export class FormComponent implements OnInit {
     let offer: Offer = OffersFactory.fromObject(this.offerForm.value);
     offer.userId = this.offer.userId;
     console.log(offer.dates);
-    for(let dateObj of offer.dates){
+    for (let dateObj of offer.dates) {
       dateObj.accepted = false;
       dateObj.course_id = this.offer.course_id;
       dateObj.offer_id = this.offer.id;
@@ -85,8 +84,10 @@ export class FormComponent implements OnInit {
       dateObj.tutor_id = this.userId;
       console.log(dateObj);
     }
+    offer.userId = this.userId;
     console.log(offer);
     if (this.isUpdatingOffer) {
+      console.log("USERID: " + this.userId);
       this.os.update(offer).subscribe(res => {
         this.router.navigate(["../"], {relativeTo: this.route});
       })
@@ -112,7 +113,7 @@ export class FormComponent implements OnInit {
       isAvailable: this.offer.isAvailable,
       title: [this.offer.title, Validators.required],
       information: [this.offer.information, Validators.required],
-      program:[this.offer.program_id, Validators.required],
+      program: [this.offer.program_id, Validators.required],
       course: [this.offer.course_id, Validators.required],
       dateObjs: this.dateObjs
     });
@@ -133,10 +134,8 @@ export class FormComponent implements OnInit {
         );
         this.dateObjs.push(fg);
       }
-      console.log(this.dateObjs);
     }
   }
-
 
   addDate() {
     this.dateObjs.push(this.fb.group(DateobjFactory.empty()));
