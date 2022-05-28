@@ -7,7 +7,6 @@ export class OffersFactory {
 
   static empty() {
     return new Offer(0, "", "", true, 0, 0, 0, [DateobjFactory.empty()]);
-    //return new Offer(0, "", "", true, CourseFactory.empty(), ProgramFactory.empty(), [],[]);
   }
 
   static fromObject(rawOffer: any): Offer {

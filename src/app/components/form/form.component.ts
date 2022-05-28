@@ -157,10 +157,8 @@ export class FormComponent implements OnInit {
   }
 
   formatDate(date: any) {
-    console.log(date);
     let newDate = date.toString();
     let res = newDate.replace(" ", "T");
-    console.log("new:" + date);
     return res;
   }
 }

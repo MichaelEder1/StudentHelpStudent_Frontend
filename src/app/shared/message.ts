@@ -1,14 +1,12 @@
-import {Course, Offer, Program, User} from "./offer";
-
 export class Message {
   constructor(
     public id: number,
-    public offer: Offer[],
-    public program: Program[],
-    public course: Course[],
-    public tutor: User[],
-    public student: [],
-    public date_time: any,
+    public offer_id: number,
+    public program_id: number,
+    public course_id: number,
+    public tutor_id: number,
+    public student_id: number,
+    public date_time: Date,
     public text: string
   ) {
   }

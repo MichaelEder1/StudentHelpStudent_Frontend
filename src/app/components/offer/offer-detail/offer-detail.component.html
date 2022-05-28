@@ -62,7 +62,9 @@
           </div>
         </div>
       </div>
-      <button class="btn btn-info mt-8 text-white">Kein passender Termin dabei?</button>
+      <label *ngIf="auth.isLoggedIn() && tutor.id != offer.userId" for="my-modal-message"
+             class="btn btn-info mt-8 text-white modal-button">Kein passender Termin dabei?
+      </label>
     </div>
     <div class="border border-1 border-red-50 rounded-md tutor p-4">
       <img class="rounded-full m-auto object-cover mb-4" src="{{tutor.photo}}"
@@ -95,7 +97,6 @@
       </svg>
       Angebot bearbeiten
     </a>
-
     <!-- Put this part before </body> tag -->
     <input type="checkbox" id="my-modal-delete" class="modal-toggle"/>
     <label for="my-modal-delete" class="modal cursor-pointer">
@@ -106,6 +107,32 @@
           wirklich löschen?
         </p>
         <button class="btn btn-error" (click)="removeOffer()">Angebot löschen</button>
+      </label>
+    </label>
+
+    <input type="checkbox" id="my-modal-message" class="modal-toggle"/>
+    <label for="my-modal-message" class="modal cursor-pointer">
+      <label class="modal-box relative text-center" for="my-modal-delete">
+        <h3 class="text-lg font-bold">Termin vorschlagen</h3>
+        <form class="max-w-full" [formGroup]="dateSuggestionForm" (ngSubmit)="submitForm()">
+          <input type="hidden" formControlName="id">
+
+          <div class="form-control w-full max-w-xs">
+            <label class="label">
+              <span class="label-text">Deine Nachricht an <b>{{tutor.first_name}}</b></span>
+            </label>
+            <input type="text" formControlName="text" placeholder="Deine Nachricht ..."
+                   class="input input-bordered w-full max-w-xs">
+          </div>
+
+          <div class="form-control w-full max-w-xs">
+            <label class="label">
+              <span class="label-text">Terminvorschlag</span>
+            </label>
+            <input type="datetime-local" class="input input-bordered w-full max-w-xs" formControlName="date_time">
+          </div>
+          <button class="btn btn-primary mt-4">Terminvorschlag senden</button>
+        </form>
       </label>
     </label>
   </div>
