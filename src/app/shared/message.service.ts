@@ -19,7 +19,7 @@ export class MessageService {
   }
 
   getMessagesByUser(id:number): Observable<Array<Message>> {
-    return this.http.get<Array<Message>>(`${this.api}/messages/${id}`)
+    return this.http.get<Array<Message>>(`${this.api}/messages/users/${id}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 

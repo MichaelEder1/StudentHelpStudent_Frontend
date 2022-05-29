@@ -33,15 +33,18 @@ export class ProfileComponent implements OnInit {
   userId: number = 0;
   roleFlag: string = "Nachhilfe-Suchender";
 
-  constructor(private us: UserService, private ds: DateobjService, private os: OfferService, private ps: ProgramService, private cs: CourseService, private ms:MessageService) {
+  constructor(private us: UserService, private ds: DateobjService, private os: OfferService, private ps: ProgramService, private cs: CourseService, private ms: MessageService) {
     this.userId = Number(sessionStorage.getItem("userId"));
   }
 
   ngOnInit(): void {
-    this.us.getUser(this.userId).subscribe(res => this.user = res);
-    if (this.user.role) {
-      this.roleFlag = "Nachhilfe-Anbieter";
-    }
+    this.us.getUser(this.userId).subscribe(res => {
+      this.user = res;
+      if (this.user.role) {
+        this.roleFlag = "Nachhilfe-Anbieter";
+      }
+    });
+
     this.ds.getStudentStuff(this.userId).subscribe(res => {
       this.studentStuff = res;
       this.cs.getAll().subscribe(res1 => this.courses = res1);
@@ -51,7 +54,7 @@ export class ProfileComponent implements OnInit {
       this.ms.getMessagesByUser(this.userId).subscribe(res5 => this.messages = res5);
     });
     this.ds.getTutorStuff(this.userId).subscribe(res => this.tutorStuff = res);
-    window.setTimeout(() => console.log(this.messages), 500);
+    window.setTimeout(() => console.log(this.user), 500);
   }
 
   getCourse(id: number) {

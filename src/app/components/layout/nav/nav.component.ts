@@ -1,6 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AuthenticationService} from "../../../shared/authentification.service";
 import {UserService} from "../../../shared/user-service";
+import {User} from "../../../shared/user";
+import {UserFactory} from "../../../shared/user-factory";
+import {Offer} from "../../../shared/offer";
 
 @Component({
   selector: 'shs-nav',
@@ -10,20 +13,22 @@ import {UserService} from "../../../shared/user-service";
 export class NavComponent implements OnInit {
 
   desktop: boolean = true;
-  image: string = "";
+  user: User = UserFactory.empty();
 
-  constructor(public auth: AuthenticationService, private us:UserService) {
+  constructor(public auth: AuthenticationService, public us: UserService) {
 
   }
 
   ngOnInit(): void {
     this.desktop = this.isDesktop();
-    window.setTimeout(()=>
-    this.us.getUser(Number(sessionStorage.getItem("userId"))).subscribe(res => this.image = res.photo),100);
+    this.us.getUser(Number(sessionStorage.getItem("userId"))).subscribe(res => this.user = res);
   }
 
   isDesktop() {
     return window.innerWidth >= 768;
   }
 
+  getUserRole() {
+    return this.user.role;
+  }
 }

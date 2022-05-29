@@ -27,7 +27,7 @@
 
 <!-- Tutors stuff -->
 
-<h2 class="bg-transparent text-2xl font-bold m-8">Meine Angebote</h2>
+<h2 *ngIf="roleFlag!='Nachhilfe-Suchender'" class="bg-transparent text-2xl font-bold m-8">Meine Angebote</h2>
 <div class="m-8" *ngIf="roleFlag!='Nachhilfe-Suchender'">
   <table class="table w-full">
     <!-- head -->
@@ -101,6 +101,40 @@
     </tr>
     </tbody>
   </table>
+
+  <div class="m-8" *ngIf="roleFlag!='Nachhilfe-Anbieter'">
+    <table class="table w-full">
+      <!-- head -->
+      <thead>
+      <tr>
+        <th></th>
+        <th>Kurs</th>
+        <th>Information</th>
+        <th>Datum/Uhrzeit</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- row 1 -->
+      <tr *ngFor="let stuff of tutorStuff; index as i;">
+        <th>{{i + 1}}</th>
+        <td>{{getCourse(stuff.course_id).course_name}} | <strong>{{getOffer(stuff.offer_id).title}}</strong></td>
+        <td>{{getOffer(stuff.offer_id).information}}</td>
+        <td>{{stuff.date_time | date:'short'}} Uhr</td>
+        <td *ngIf="roleFlag!='Nachhilfe-Suchender'">
+        <span *ngIf="isInFuture(stuff.date_time)"
+              class="text-green-700 font-bold">anstehend</span>
+          <span *ngIf="!isInFuture(stuff.date_time)"
+                class="text-red-700 font-bold">abgeschloßen</span>
+        </td>
+        <td *ngIf="roleFlag=='Nachhilfe-Suchender'">
+          <span *ngIf="stuff.student_id && isInFuture(stuff.date_time)" class="text-red-700 font-bold">gebucht</span>
+          <span *ngIf="stuff.student_id && !isInFuture(stuff.date_time)"
+                class="text-primary font-bold">abgeschloßen</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
 
   <!-- Messages -->
   <h2 class="bg-transparent text-2xl font-bold m-8" *ngIf="roleFlag=='Nachhilfe-Suchender'">Deine gesendeten
