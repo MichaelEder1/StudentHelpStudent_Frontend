@@ -74,7 +74,6 @@ export class FormComponent implements OnInit {
   submitForm() {
     let offer: Offer = OffersFactory.fromObject(this.offerForm.value);
     offer.userId = this.offer.userId;
-    console.log(offer.dates);
     for (let dateObj of offer.dates) {
       dateObj.accepted = false;
       dateObj.course_id = this.offer.course_id;
@@ -91,7 +90,6 @@ export class FormComponent implements OnInit {
 
     } else {
       offer.userId = Number(sessionStorage['userId']);
-      console.log(offer);
       this.os.create(offer).subscribe(res => {
         this.offer = OffersFactory.empty();
         this.toastr.success("Das Angebot " + this.offer.title + "wurde gespeichert!");
@@ -102,7 +100,6 @@ export class FormComponent implements OnInit {
   }
 
   initOffer() {
-    console.log(this.offer);
     this.buildDatesArray();
     this.offerForm = this.fb.group({
       id: this.offer.id,
@@ -155,7 +152,6 @@ export class FormComponent implements OnInit {
 
   formatDate(date: any) {
     let newDate = date.toString();
-    let res = newDate.replace(" ", "T");
-    return res;
+    return newDate.replace(" ", "T");
   }
 }
