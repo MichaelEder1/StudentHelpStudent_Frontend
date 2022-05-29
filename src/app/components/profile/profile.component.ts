@@ -13,6 +13,8 @@ import {OfferService} from "../../shared/offer-service";
 import {OffersFactory} from "../../shared/offers-factory";
 import {ProgramFactory} from "../../shared/program-factory";
 import {CourseFactory} from "../../shared/course-factory";
+import {Message} from "../../shared/message";
+import {MessageService} from "../../shared/message.service";
 
 @Component({
   selector: 'shs-profile',
@@ -24,12 +26,14 @@ export class ProfileComponent implements OnInit {
   studentStuff: DateObj[] = [];
   tutorStuff: DateObj[] = [];
   courses: Course[] = [];
+  users: User[] = [];
   programs: Program[] = [];
   offers: Offer[] = [];
+  messages: Message[] = [];
   userId: number = 0;
   roleFlag: string = "Nachhilfe-Suchender";
 
-  constructor(private us: UserService, private ds: DateobjService, private os: OfferService, private ps: ProgramService, private cs: CourseService) {
+  constructor(private us: UserService, private ds: DateobjService, private os: OfferService, private ps: ProgramService, private cs: CourseService, private ms:MessageService) {
     this.userId = Number(sessionStorage.getItem("userId"));
   }
 
@@ -42,30 +46,44 @@ export class ProfileComponent implements OnInit {
       this.studentStuff = res;
       this.cs.getAll().subscribe(res1 => this.courses = res1);
       this.os.getAll().subscribe(res2 => this.offers = res2);
-      this.ps.getAll().subscribe(res2 => this.programs = res2);
+      this.ps.getAll().subscribe(res3 => this.programs = res3);
+      this.us.getAll().subscribe(res4 => this.users = res4);
+      this.ms.getMessagesByUser(this.userId).subscribe(res5 => this.messages = res5);
     });
     this.ds.getTutorStuff(this.userId).subscribe(res => this.tutorStuff = res);
+    window.setTimeout(() => console.log(this.messages), 500);
   }
 
-  getCourse(id:number){
+  getCourse(id: number) {
     for (let course of this.courses) {
-      if(course.id == id) return course;
+      if (course.id == id) return course;
     }
     return CourseFactory.empty();
   }
 
-  getProgram(id:number){
+  getProgram(id: number) {
     for (let program of this.programs) {
-      if(program.id == id) return program;
+      if (program.id == id) return program;
     }
     return ProgramFactory.empty();
   }
 
-  getOffer(id:number){
+  getOffer(id: number) {
     for (let offer of this.offers) {
-      if(offer.id == id) return offer;
+      if (offer.id == id) return offer;
     }
     return OffersFactory.empty();
   }
 
+  getUser(id: number) {
+    for (let user of this.users) {
+      console.log(id);
+      if (user.id == id) return user;
+    }
+    return UserFactory.empty();
+  }
+
+  isInFuture(date: Date) {
+    return this.ds.getDate(date) > new Date();
+  }
 }

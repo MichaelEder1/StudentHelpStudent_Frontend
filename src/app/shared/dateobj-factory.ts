@@ -1,8 +1,4 @@
 import {DateObj} from './dateobj';
-import {ProgramFactory} from "./program-factory";
-import {CourseFactory} from "./course-factory";
-import {UserFactory} from "./user-factory";
-import {OffersFactory} from "./offers-factory";
 
 export class DateobjFactory {
   static empty() {

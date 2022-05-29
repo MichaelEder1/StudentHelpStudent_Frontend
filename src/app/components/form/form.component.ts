@@ -82,12 +82,9 @@ export class FormComponent implements OnInit {
       dateObj.program_id = this.offer.program_id;
       dateObj.student_id = 0;
       dateObj.tutor_id = this.userId;
-      console.log(dateObj);
     }
     offer.userId = this.userId;
-    console.log(offer);
     if (this.isUpdatingOffer) {
-      console.log("USERID: " + this.userId);
       this.os.update(offer).subscribe(res => {
         this.router.navigate(["../"], {relativeTo: this.route});
       })

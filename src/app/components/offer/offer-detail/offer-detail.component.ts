@@ -49,12 +49,14 @@ export class OfferDetailComponent implements OnInit {
   ngOnInit(): void {
     this.ds.getDatesForOffer(this.offerId).subscribe(res => {
       this.dates = res;
-      this.cs.getSingle(this.dates[0].course_id).subscribe(res1 => this.course = res1);
-      this.ps.getSingleById(this.dates[0].program_id).subscribe(res2 => this.program = res2);
-      this.os.getSingle(this.offerId).subscribe(res3 => this.offer = res3);
-      this.us.getUser(this.dates[0].tutor_id).subscribe(res4 => this.tutor = res4);
-      this.us.getUser(this.userId).subscribe(res5 => this.student = res5);
-      console.log(typeof this.offerId);
+      if(this.dates[0]) {
+        this.cs.getSingle(this.dates[0].course_id).subscribe(res1 => this.course = res1);
+        this.ps.getSingleById(this.dates[0].program_id).subscribe(res2 => this.program = res2);
+        this.os.getSingle(this.offerId).subscribe(res3 => this.offer = res3);
+        this.us.getUser(this.dates[0].tutor_id).subscribe(res4 => this.tutor = res4);
+        this.us.getUser(this.userId).subscribe(res5 => this.student = res5);
+        console.log(typeof this.offerId);
+      }
     });
     this.initMessage();
   }
