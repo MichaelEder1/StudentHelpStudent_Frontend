@@ -18,8 +18,13 @@ export class MessageService {
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
-  getMessagesByUser(id:number): Observable<Array<Message>> {
-    return this.http.get<Array<Message>>(`${this.api}/messages/users/${id}`)
+  getMessagesByTutor(id:number): Observable<Array<Message>> {
+    return this.http.get<Array<Message>>(`${this.api}/messages/tutor/${id}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
+
+  getMessagesByStudent(id:number): Observable<Array<Message>> {
+    return this.http.get<Array<Message>>(`${this.api}/messages/student/${id}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 

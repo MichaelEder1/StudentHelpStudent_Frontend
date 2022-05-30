@@ -41,13 +41,13 @@
     </thead>
     <tbody>
     <!-- row 1 -->
-    <tr *ngFor="let stuff of studentStuff; index as i;">
+    <tr *ngFor="let offer of offers; index as i;">
       <th>{{i + 1}}</th>
-      <td>{{getCourse(stuff.id).course_name}} | <strong>{{getOffer(stuff.id).title}}</strong></td>
-      <td>{{getOffer(stuff.id).information}}</td>
+      <td>{{getCourse(offer.id).course_name}} | <strong>{{offer.title}}</strong></td>
+      <td>{{offer.information}}</td>
       <td>
         <a
-          routerLink="/lehrveranstaltungen/{{getProgram(stuff.id).program_name}}/{{getCourse(stuff.id).code}}/angebote/{{stuff.id}}">zum
+          routerLink="/lehrveranstaltungen/{{getProgram(offer.id).program_name}}/{{getCourse(offer.id).code}}/angebote/{{offer.id}}">zum
           Angebot</a>
       </td>
     </tr>
@@ -77,7 +77,7 @@
       <th>{{i + 1}}</th>
       <td>{{getCourse(stuff.course_id).course_name}} | <strong>{{getOffer(stuff.offer_id).title}}</strong></td>
       <td>{{getOffer(stuff.offer_id).information}}</td>
-      <td>{{stuff.date_time | date:'short'}} Uhr</td>
+      <td>{{getDate(stuff.date_time) | date:'longDate'}}, {{getDate(stuff.date_time) | date:'shortTime'}} Uhr</td>
       <td *ngIf="roleFlag!='Nachhilfe-Suchender'">
         <span *ngIf="stuff.student_id && isInFuture(stuff.date_time)"
               class="text-red-700 font-bold">gebucht von {{getUser(stuff.student_id).first_name}}</span>
@@ -101,73 +101,92 @@
     </tr>
     </tbody>
   </table>
+</div>
 
-  <div class="m-8" *ngIf="roleFlag!='Nachhilfe-Anbieter'">
-    <table class="table w-full">
-      <!-- head -->
-      <thead>
-      <tr>
-        <th></th>
-        <th>Kurs</th>
-        <th>Information</th>
-        <th>Datum/Uhrzeit</th>
-        <th>Status</th>
-      </tr>
-      </thead>
-      <tbody>
-      <!-- row 1 -->
-      <tr *ngFor="let stuff of tutorStuff; index as i;">
-        <th>{{i + 1}}</th>
-        <td>{{getCourse(stuff.course_id).course_name}} | <strong>{{getOffer(stuff.offer_id).title}}</strong></td>
-        <td>{{getOffer(stuff.offer_id).information}}</td>
-        <td>{{stuff.date_time | date:'short'}} Uhr</td>
-        <td *ngIf="roleFlag!='Nachhilfe-Suchender'">
+<div class="m-8" *ngIf="!auth.isTutor()">
+  <table class="table w-full">
+    <!-- head -->
+    <thead>
+    <tr>
+      <th></th>
+      <th>Kurs</th>
+      <th>Information</th>
+      <th>Datum/Uhrzeit</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- row 1 -->
+    <tr *ngFor="let stuff of studentStuff; index as i;">
+      <th>{{i + 1}}</th>
+      <td>{{getCourse(stuff.course_id).course_name}} | <strong>{{getOffer(stuff.offer_id).title}}</strong></td>
+      <td>{{getOffer(stuff.offer_id).information}}</td>
+      <td>{{getDate(stuff.date_time) | date:'longDate'}}, {{getDate(stuff.date_time) | date:'shortTime'}} Uhr</td>
+      <td>
         <span *ngIf="isInFuture(stuff.date_time)"
               class="text-green-700 font-bold">anstehend</span>
-          <span *ngIf="!isInFuture(stuff.date_time)"
-                class="text-red-700 font-bold">abgeschloßen</span>
-        </td>
-        <td *ngIf="roleFlag=='Nachhilfe-Suchender'">
-          <span *ngIf="stuff.student_id && isInFuture(stuff.date_time)" class="text-red-700 font-bold">gebucht</span>
-          <span *ngIf="stuff.student_id && !isInFuture(stuff.date_time)"
-                class="text-primary font-bold">abgeschloßen</span>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+        <span *ngIf="!isInFuture(stuff.date_time)"
+              class="text-red-700 font-bold">abgeschloßen</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Messages -->
+<h2 class="bg-transparent text-2xl font-bold m-8" *ngIf="!auth.isTutor()">Deine gesendeten Nachrichten</h2>
+<h2 class="bg-transparent text-2xl font-bold m-8" *ngIf="auth.isTutor()">Deine erhaltenen Nachrichten</h2>
+<div class="m-8" *ngIf="auth.isTutor()">
+  <table class="table w-full">
+    <!-- head -->
+    <thead>
+    <tr>
+      <th></th>
+      <th>Kurs</th>
+      <th>Von</th>
+      <th>Text</th>
+      <th>vorgeschlagener Termin</th>
+      <th>Link</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- row 1 -->
+    <tr *ngFor="let message of messages; index as i;">
+      <th>{{i + 1}}</th>
+      <td>{{getCourse(message.course_id).course_name}} | <strong>{{getOffer(message.offer_id).title}}</strong></td>
+      <td>{{getUser(message.student_id).first_name}} {{getUser(message.student_id).last_name}}</td>
+      <td>{{message.text}}</td>
+      <td>{{getDate(message.date_time) | date:'longDate'}}, {{getDate(message.date_time) | date:'shortTime'}} Uhr</td>
+      <td>
+        <a
+          routerLink="/lehrveranstaltungen/{{getProgram(message.program_id).program_name}}/{{getCourse(message.course_id).code}}/angebote/{{message.offer_id}}/admin">
+          Termin hinzufügen </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 
-  <!-- Messages -->
-  <h2 class="bg-transparent text-2xl font-bold m-8" *ngIf="roleFlag=='Nachhilfe-Suchender'">Deine gesendeten
-    Nachrichten</h2>
-  <h2 class="bg-transparent text-2xl font-bold m-8" *ngIf="roleFlag!='Nachhilfe-Suchender'">Deine Nachrichten</h2>
-  <div class="m-8">
-    <table class="table w-full">
-      <!-- head -->
-      <thead>
-      <tr>
-        <th></th>
-        <th>Kurs</th>
-        <th>Von</th>
-        <th>Text</th>
-        <th>vorgeschlagener Termin</th>
-        <th>Link</th>
-      </tr>
-      </thead>
-      <tbody>
-      <!-- row 1 -->
-      <tr *ngFor="let message of messages; index as i;">
-        <th>{{i + 1}}</th>
-        <td>{{getCourse(message.course_id).course_name}} | <strong>{{getOffer(message.offer_id).title}}</strong></td>
-        <td>{{getUser(message.student_id).first_name}} {{getUser(message.student_id).last_name}}</td>
-        <td>{{message.text}}</td>
-        <td>{{message.date_time | date:'short'}} Uhr</td>
-        <td>
-          <a
-            routerLink="/lehrveranstaltungen/{{getProgram(message.program_id).program_name}}/{{getCourse(message.course_id).code}}/angebote/{{message.offer_id}}/admin">
-            Termin hinzufügen </a>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="m-8" *ngIf="!auth.isTutor()">
+  <table class="table w-full">
+    <!-- head -->
+    <thead>
+    <tr>
+      <th></th>
+      <th>Kurs</th>
+      <th>An</th>
+      <th>Text</th>
+      <th>vorgeschlagener Termin</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- row 1 -->
+    <tr *ngFor="let message of messages; index as i;">
+      <th>{{i + 1}}</th>
+      <td>{{getCourse(message.course_id).course_name}} | <strong>{{getOffer(message.offer_id).title}}</strong></td>
+      <td>{{getUser(message.tutor_id).first_name}} {{getUser(message.tutor_id).last_name}}</td>
+      <td>{{message.text}}</td>
+      <td>{{getDate(message.date_time) | date:'longDate'}}, {{getDate(message.date_time) | date:'shortTime'}} Uhr</td>
+    </tr>
+    </tbody>
+  </table>
 </div>

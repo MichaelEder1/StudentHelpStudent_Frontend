@@ -25,6 +25,11 @@ export class OfferService {
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
+  getOffersByUser(id: number): Observable<Array<Offer>> {
+    return this.http.get<Array<Offer>>(`${this.api}/offers/user/${id}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
+
   private errorHandler(error: Error | any): Observable<any> {
     return throwError(error);
   }

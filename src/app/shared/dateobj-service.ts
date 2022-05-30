@@ -64,7 +64,6 @@ export class DateobjService {
   }
 
   update(date: DateObj) {
-    console.log("in update");
     return this.http.put(`${this.api}/dates/${date.id}`, date)
       .pipe(retry(3)).pipe(catchError(DateobjService.errorHandler));
   }
