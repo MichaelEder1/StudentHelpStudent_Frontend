@@ -7,6 +7,8 @@ interface Token {
   exp: number;
   user: {
     id: string;
+    role:string;
+    photo:string;
   };
 }
 
@@ -28,14 +30,22 @@ export class AuthenticationService {
     return Number.parseInt(<string>sessionStorage.getItem("userId"));
   }
 
+  public isTutor() {
+    return Number.parseInt(<string>sessionStorage.getItem("role")) == 1;
+  }
+
+  public getPhoto() {
+    return <string>sessionStorage.getItem("photo");
+  }
+
   public setSessionStorage(token: string) {
     //console.log("Storing token");
     //console.log(jwt_decode(token));
     const decodedToken = jwt_decode(token) as Token;
-    console.log(decodedToken);
-    console.log(decodedToken.user.id);
     sessionStorage.setItem("token", token);
     sessionStorage.setItem("userId", decodedToken.user.id);
+    sessionStorage.setItem("role", decodedToken.user.role);
+    sessionStorage.setItem("photo", decodedToken.user.photo);
   }
 
   logout() {
@@ -43,6 +53,7 @@ export class AuthenticationService {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("userId");
     sessionStorage.removeItem("role");
+    sessionStorage.removeItem("photo");
     this.router.navigateByUrl("/");
     //console.log("logged out");
   }
