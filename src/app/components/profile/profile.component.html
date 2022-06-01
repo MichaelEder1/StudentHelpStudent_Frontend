@@ -43,11 +43,11 @@
     <!-- row 1 -->
     <tr *ngFor="let offer of offers; index as i;">
       <th>{{i + 1}}</th>
-      <td>{{getCourse(offer.id).course_name}} | <strong>{{offer.title}}</strong></td>
+      <td>{{getCourse(offer.course_id).course_name}} | <strong>{{offer.title}}</strong></td>
       <td>{{offer.information}}</td>
       <td>
         <a
-          routerLink="/lehrveranstaltungen/{{getProgram(offer.id).program_name}}/{{getCourse(offer.id).code}}/angebote/{{offer.id}}">zum
+          routerLink="/lehrveranstaltungen/{{getProgram(offer.program_id).program_name}}/{{getCourse(offer.course_id).code}}/angebote/{{offer.id}}">zum
           Angebot</a>
       </td>
     </tr>

@@ -33,6 +33,7 @@ import {UserService} from "./shared/user-service";
 import {registerLocaleData} from "@angular/common";
 import localeDE from '@angular/common/locales/de';
 import { FormComponent } from './components/form/form.component';
+import {CanNavigateToAdminGuard} from "./can-navigate-to-admin.guard";
 
 registerLocaleData(localeDE);
 
@@ -64,7 +65,7 @@ registerLocaleData(localeDE);
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
   ],
-  providers: [ProgramService, CourseService, DateobjService, OfferService, AuthenticationService, UserService,
+  providers: [ProgramService, CourseService, DateobjService, OfferService, AuthenticationService, UserService, CanNavigateToAdminGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
