@@ -129,6 +129,7 @@ export class FormComponent implements OnInit {
         this.dateObjs.push(fg);
       }
     }
+    console.log(this.offer.dates);
   }
 
   addDate() {

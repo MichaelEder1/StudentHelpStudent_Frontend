@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
   userId: number = 0;
   roleFlag: string = "Nachhilfe-Suchender";
 
-  constructor(private us: UserService, private ds: DateobjService, private os: OfferService, private ps: ProgramService, private cs: CourseService, private ms: MessageService, public auth:AuthenticationService) {
+  constructor(private us: UserService, private ds: DateobjService, private os: OfferService, private ps: ProgramService, private cs: CourseService, private ms: MessageService, public auth: AuthenticationService) {
     this.userId = Number(sessionStorage.getItem("userId"));
   }
 
@@ -50,13 +50,13 @@ export class ProfileComponent implements OnInit {
     this.ds.getStudentStuff(this.userId).subscribe(res => {
       this.studentStuff = res;
       this.cs.getAll().subscribe(res1 => this.courses = res1);
-      this.os.getAll().subscribe((res=>this.allOffers = res));
+      this.os.getAll().subscribe((res => this.allOffers = res));
       this.os.getOffersByUser(this.userId).subscribe(res2 => this.offers = res2);
       this.ps.getAll().subscribe(res3 => this.programs = res3);
       this.us.getAll().subscribe(res4 => this.users = res4);
-      if(this.auth.isTutor()) {
+      if (this.auth.isTutor()) {
         this.ms.getMessagesByTutor(this.userId).subscribe(res5 => this.messages = res5);
-      }else {
+      } else {
         this.ms.getMessagesByStudent(this.userId).subscribe(res5 => this.messages = res5);
       }
     });
@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit {
     console.log(this.offers);
   }
 
-  getDate(date:Date){
+  getDate(date: Date) {
     return this.ds.getDate(date);
   }
 

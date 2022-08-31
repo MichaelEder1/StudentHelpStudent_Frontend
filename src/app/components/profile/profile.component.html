@@ -3,8 +3,7 @@
     <div class="max-w-md">
       <div class="avatar mb-12">
         <div class="w-40 rounded">
-          <img src="{{user.photo}}" alt="{{user.first_name}} {{user.last_name}}"
-               title="{{user.first_name}} {{user.last_name}}"/>
+          <img src="{{user.photo}}" alt="{{user.first_name}} {{user.last_name}}" title="{{user.first_name}} {{user.last_name}}"/>
         </div>
       </div>
       <h1 class="text-5xl font-bold mb-4">Hallo {{user.first_name}}!</h1>
@@ -46,15 +45,13 @@
       <td>{{getCourse(offer.course_id).course_name}} | <strong>{{offer.title}}</strong></td>
       <td>{{offer.information}}</td>
       <td>
-        <a
-          routerLink="/lehrveranstaltungen/{{getProgram(offer.program_id).program_name}}/{{getCourse(offer.course_id).code}}/angebote/{{offer.id}}">zum
+        <a routerLink="/lehrveranstaltungen/{{getProgram(offer.program_id).program_name}}/{{getCourse(offer.course_id).code}}/angebote/{{offer.id}}">zum
           Angebot</a>
       </td>
     </tr>
     </tbody>
   </table>
-</div>
-<!-- Students stuff -->
+</div><!-- Students stuff -->
 
 <h2 class="bg-transparent text-2xl font-bold m-8" *ngIf="roleFlag=='Nachhilfe-Suchender'">Gebuchte Termine</h2>
 <h2 class="bg-transparent text-2xl font-bold m-8" *ngIf="roleFlag!='Nachhilfe-Suchender'">Meine angebotenen Termine</h2>
@@ -79,22 +76,17 @@
       <td>{{getOffer(stuff.offer_id).information}}</td>
       <td>{{getDate(stuff.date_time) | date:'longDate'}}, {{getDate(stuff.date_time) | date:'shortTime'}} Uhr</td>
       <td *ngIf="roleFlag!='Nachhilfe-Suchender'">
-        <span *ngIf="stuff.student_id && isInFuture(stuff.date_time)"
-              class="text-red-700 font-bold">gebucht von {{getUser(stuff.student_id).first_name}}</span>
+        <span *ngIf="stuff.student_id && isInFuture(stuff.date_time)" class="text-red-700 font-bold">gebucht von {{getUser(stuff.student_id).first_name}}</span>
         <span *ngIf="!stuff.student_id && isInFuture(stuff.date_time)" class="text-green-700 font-bold">frei</span>
-        <span *ngIf="stuff.student_id && !isInFuture(stuff.date_time)"
-              class="text-primary font-bold">abgeschloßen</span>
-        <span *ngIf="!stuff.student_id && !isInFuture(stuff.date_time)"
-              class="text-primary font-bold">nicht gebucht</span>
+        <span *ngIf="stuff.student_id && !isInFuture(stuff.date_time)" class="text-primary font-bold">abgeschloßen</span>
+        <span *ngIf="!stuff.student_id && !isInFuture(stuff.date_time)" class="text-primary font-bold">nicht gebucht</span>
       </td>
       <td *ngIf="roleFlag=='Nachhilfe-Suchender'">
         <span *ngIf="stuff.student_id && isInFuture(stuff.date_time)" class="text-red-700 font-bold">gebucht</span>
-        <span *ngIf="stuff.student_id && !isInFuture(stuff.date_time)"
-              class="text-primary font-bold">abgeschloßen</span>
+        <span *ngIf="stuff.student_id && !isInFuture(stuff.date_time)" class="text-primary font-bold">abgeschloßen</span>
       </td>
       <td>
-        <a
-          routerLink="/lehrveranstaltungen/{{getProgram(stuff.program_id).program_name}}/{{getCourse(stuff.course_id).code}}/angebote/{{stuff.offer_id}}">zum
+        <a routerLink="/lehrveranstaltungen/{{getProgram(stuff.program_id).program_name}}/{{getCourse(stuff.course_id).code}}/angebote/{{stuff.offer_id}}">zum
           Angebot
         </a>
       </td>
@@ -123,16 +115,13 @@
       <td>{{getOffer(stuff.offer_id).information}}</td>
       <td>{{getDate(stuff.date_time) | date:'longDate'}}, {{getDate(stuff.date_time) | date:'shortTime'}} Uhr</td>
       <td>
-        <span *ngIf="isInFuture(stuff.date_time)"
-              class="text-green-700 font-bold">anstehend</span>
-        <span *ngIf="!isInFuture(stuff.date_time)"
-              class="text-red-700 font-bold">abgeschloßen</span>
+        <span *ngIf="isInFuture(stuff.date_time)" class="text-green-700 font-bold">anstehend</span>
+        <span *ngIf="!isInFuture(stuff.date_time)" class="text-red-700 font-bold">abgeschloßen</span>
       </td>
     </tr>
     </tbody>
   </table>
-</div>
-<!-- Messages -->
+</div><!-- Messages -->
 <h2 class="bg-transparent text-2xl font-bold m-8" *ngIf="!auth.isTutor()">Deine gesendeten Nachrichten</h2>
 <h2 class="bg-transparent text-2xl font-bold m-8" *ngIf="auth.isTutor()">Deine erhaltenen Nachrichten</h2>
 <div class="m-8" *ngIf="auth.isTutor()">
@@ -157,8 +146,7 @@
       <td>{{message.text}}</td>
       <td>{{getDate(message.date_time) | date:'longDate'}}, {{getDate(message.date_time) | date:'shortTime'}} Uhr</td>
       <td>
-        <a
-          routerLink="/lehrveranstaltungen/{{getProgram(message.program_id).program_name}}/{{getCourse(message.course_id).code}}/angebote/{{message.offer_id}}/admin">
+        <a routerLink="/lehrveranstaltungen/{{getProgram(message.program_id).program_name}}/{{getCourse(message.course_id).code}}/angebote/{{message.offer_id}}/admin">
           Termin hinzufügen </a>
       </td>
     </tr>
