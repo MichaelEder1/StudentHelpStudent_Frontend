@@ -34,6 +34,8 @@ import {registerLocaleData} from "@angular/common";
 import localeDE from '@angular/common/locales/de';
 import { FormComponent } from './components/form/form.component';
 import {CanNavigateToAdminGuard} from "./can-navigate-to-admin.guard";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 registerLocaleData(localeDE);
 
@@ -64,6 +66,12 @@ registerLocaleData(localeDE);
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [ProgramService, CourseService, DateobjService, OfferService, AuthenticationService, UserService, CanNavigateToAdminGuard,
     {

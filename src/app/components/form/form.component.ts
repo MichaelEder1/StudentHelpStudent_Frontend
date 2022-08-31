@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {OfferService} from "../../shared/offer-service";
 import {DateobjFactory} from "../../shared/dateobj-factory";
@@ -21,7 +21,7 @@ import {Program} from "../../shared/program";
 export class FormComponent implements OnInit {
 
 
-  offerForm: FormGroup;
+  offerForm: UntypedFormGroup;
   offer: Offer = OffersFactory.empty();
   allCourses: Course[] = [];
   courses: Course[] = [];
@@ -31,10 +31,10 @@ export class FormComponent implements OnInit {
   errors: { [key: string]: string } = {};
 
   isUpdatingOffer = false;
-  dateObjs: FormArray;
+  dateObjs: UntypedFormArray;
 
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
               private os: OfferService,
               private cs: CourseService,
               private ps: ProgramService,
@@ -122,8 +122,8 @@ export class FormComponent implements OnInit {
       for (let dateObj of this.offer.dates) {
         let fg = this.fb.group(
           {
-            id: new FormControl(dateObj.id),
-            date_time: new FormControl(this.formatDate(dateObj.date_time), [Validators.required]),
+            id: new UntypedFormControl(dateObj.id),
+            date_time: new UntypedFormControl(this.formatDate(dateObj.date_time), [Validators.required]),
           }
         );
         this.dateObjs.push(fg);

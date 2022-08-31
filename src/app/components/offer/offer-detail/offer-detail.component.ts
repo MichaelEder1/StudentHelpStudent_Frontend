@@ -17,7 +17,7 @@ import {ProgramService} from "../../../shared/program-service";
 import {ProgramFactory} from "../../../shared/program-factory";
 import {Course} from "../../../shared/course";
 import {Program} from "../../../shared/program";
-import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormArray, UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {MessageService} from "../../../shared/message.service";
 import {Message} from "../../../shared/message";
 import {MessageFactory} from "../../../shared/message-factory";
@@ -38,9 +38,9 @@ export class OfferDetailComponent implements OnInit {
   message: Message = MessageFactory.empty();
   offerId: number = 0;
   userId: number = 0;
-  dateSuggestionForm: FormGroup;
+  dateSuggestionForm: UntypedFormGroup;
 
-  constructor(private ds: DateobjService, private route: ActivatedRoute, private router: Router, private us: UserService, private os: OfferService, private cs: CourseService, private ps: ProgramService, public auth: AuthenticationService, private ms: MessageService, private toastr: ToastrService, private fb: FormBuilder) {
+  constructor(private ds: DateobjService, private route: ActivatedRoute, private router: Router, private us: UserService, private os: OfferService, private cs: CourseService, private ps: ProgramService, public auth: AuthenticationService, private ms: MessageService, private toastr: ToastrService, private fb: UntypedFormBuilder) {
     this.offerId = route.snapshot.params['id'];
     this.userId = Number(sessionStorage.getItem("userId"));
     this.dateSuggestionForm = this.fb.group({});
